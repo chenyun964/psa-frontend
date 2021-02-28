@@ -1,0 +1,39 @@
+.sign-in-form {
+	max-width: 450px;
+	margin: 8% auto;
+	padding: 30px;
+
+	.sign-in-heading {
+		font-size: rem(16);
+	}
+
+	.invite-link{
+		text-decoration: underline;
+		color: #FFCE67;
+	}
+
+	.submit-code-btn{
+		width: 40%;
+	}
+
+	.code-input{
+		display: block;
+		text-align: center;
+	}
+
+	.input-empty{
+		border: 1px solid #dc3545;
+	}
+}
+
+.select_page_profile{
+	height: 30px;
+	width: 30px;
+	margin-right: 10px;
+}
+
+.select_page_option{
+	overflow: hidden;
+	-webkit-line-clmap: 1;
+	text-overflow: ellipsis;
+}
