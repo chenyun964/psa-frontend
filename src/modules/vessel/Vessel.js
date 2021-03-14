@@ -44,14 +44,14 @@ class Vessel extends Component {
                     </div>
                 </header>
                 
-                <section className="page-content container-fluid">
+                <section className="page-content">
                     <div className="row">
                         <div className="col-12">
                             <div className="card">
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-sm-12">
-                                            <Table data={this.state.vessels}/>
+                                            <Table data={this.state.vessels} />
                                         </div>
                                     </div>
                                 </div>

@@ -19,6 +19,20 @@ class LoginModel {
         }});
     }
 
+    async register(data){
+        return axios.post(config['user_register_api'], data,  {headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }});
+    }
+
+    async reset(data){
+        return axios.post(config['user_reset_api'], data,  {headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }});
+    }
+
     storeTokens(data){
         cookies.set("_psausert", data.token, {maxAge: maxage});
     }

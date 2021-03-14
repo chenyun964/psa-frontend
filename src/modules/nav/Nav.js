@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 class Navbar extends Component {
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.state = {
-			username: '',
-			email: ''
+			username: 'Chen Yun',
+			email: 'chenyun964@gmail.com'
 		}
 	}
 
@@ -64,13 +64,6 @@ class Navbar extends Component {
 													<div className="card card-notification">
 														<div className="card-header">
 															<h5 className="card-title">Notifications</h5>
-															<ul className="actions top-right">
-																<li>
-																	<a href="javascript:void(0);" data-q-action="open-notifi-config">
-																		<i className="icon dripicons-gear"></i>
-																	</a>
-																</li>
-															</ul>
 														</div>
 														<div className="card-body">
 															<div className="card-container-wrapper">
@@ -80,36 +73,6 @@ class Navbar extends Component {
 																			<div className="timeline-info">
 																				<div>Prep for bi-weekly meeting with <a href="javascript:void(0)"><strong>Steven Weinberg</strong></a> </div>
 																				<small className="text-muted">07/05/18, 2:00 PM</small>
-																			</div>
-																		</div>
-																		<div className="timeline-list timeline-border timeline-primary">
-																			<div className="timeline-info">
-																				<div>Skype call with development team</div>
-																				<small className="text-muted">07/07/18, 1:00 PM</small>
-																			</div>
-																		</div>
-																		<div className="timeline-list  timeline-border timeline-accent">
-																			<div className="timeline-info">
-																				<div>Programming control system</div>
-																				<small className="text-muted">07/09/18, 10:00 AM - 6:00 PM</small>
-																			</div>
-																		</div>
-																		<div className="timeline-list  timeline-border timeline-success">
-																			<div className="timeline-info">
-																				<div>Lunch with Peter Higgs</div>
-																				<small className="text-muted">07/10/18, 12:00 PM</small>
-																			</div>
-																		</div>
-																		<div className="timeline-list  timeline-border timeline-warning">
-																			<div className="timeline-info">
-																				<div><a href="#"><strong>Approve Request</strong></a> for new training material by</div>
-																				<small className="text-muted">07/11/18, 9:00 AM</small>
-																			</div>
-																		</div>
-																		<div className="timeline-list  timeline-border timeline-info">
-																			<div className="timeline-info">
-																				<div><a href="#"><strong>RSVP</strong></a> for this year's hackathon.</div>
-																				<small className="text-muted">07/11/18, 1:30 PM</small>
 																			</div>
 																		</div>
 																	</div>
@@ -132,7 +95,7 @@ class Navbar extends Component {
 															</div>
 														</div>
 													</div>
-													<a className="dropdown-item" href="pages.my-account.html"><i className="icon dripicons-gear"></i> Account Settings </a>
+													<a className="dropdown-item" href="/setting"><i className="icon dripicons-gear"></i> Account Settings </a>
 													<button className="dropdown-item" href="/" onClick={() => this.signout()}><i className="icon dripicons-lock-open"></i> Sign Out</button>
 												</div>
 											</li>

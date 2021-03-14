@@ -91,12 +91,7 @@ function Table({ columns, data }) {
         <div>
             <table className="table table-responsive-xl table-striped table-bordered dataTable" role="grid" {...getTableProps()}>
                 <tr>
-                    <th
-                        colSpan={visibleColumns.length}
-                        style={{
-                            textAlign: 'left',
-                        }}
-                    >
+                    <th colSpan={visibleColumns.length}>
                         <GlobalFilter
                             preGlobalFilteredRows={preGlobalFilteredRows}
                             globalFilter={state.globalFilter}
@@ -126,7 +121,7 @@ function Table({ columns, data }) {
                     {page.map((row, i) => {
                         prepareRow(row)
                         return (
-                            <tr {...row.getRowProps()}>
+                            <tr {...row.getRowProps()} onClick={() => window.location.replace('/vessel/' + row.original.id)}>
                                 {row.cells.map(cell => {
                                     return <td key={i} role="row" className="odd" {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                 })}

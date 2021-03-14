@@ -8,6 +8,7 @@ import Login from './modules/authentication/Login';
 import Dashboard from './modules/dashboard/Dashboard';
 
 import Vessel from './modules/vessel/Vessel';
+import VesselDetail from './modules/vessel/VesselDetail';
 
 class GuestRoutes extends Component {
 
@@ -37,6 +38,7 @@ class LoginRoutes extends Component {
               <Route exact path="/" component={Dashboard} />
               <Route exact path='/dashboard' component={Dashboard} />
               <Route exact path='/vessel' component={Vessel} />
+              <Route exact path='/vessel/:id' component={VesselDetail} />
             </Switch>
           </div>
       </Fragment >
