@@ -6,32 +6,24 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "Dashboard",
-      chosen: [1,2,3]
+      title: "Dashboard"
     }
-    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
   }
 
-  handleChange(){
-    this.state.chosen.push(4)
-    console.log(this.state.chosen)
-  }
-
   render() {
     return (
-      <div className="dashboard-page">
+      <div className="dashboard-page container">
         <header className="page-header">
 					<div className="d-flex align-items-center">
 						<div className="mr-auto">
 							<h1>{this.state.title}</h1>
-              <button onClick={this.handleChange}>Test</button>
 						</div>
 					</div>
 				</header>
-        <section className="page-content container-fluid">
+        <section className="page-content">
         <div className="col-12">
           <div className="card">
             <div className="row m-0 col-border-xl">

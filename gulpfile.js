@@ -39,49 +39,49 @@ gulp.task("sass", function() {
     .pipe(gulp.dest("./public/assets/css/common"))
 })
 
-// // // CREATE DEMO VERTICAL BUNDLE FILES
-gulp.task("verticalLayout", function() {
-    return gulp.src("src/assets/sass/layouts/vertical/core/*")
+// // // CREATE DEMO horizontal BUNDLE FILES
+gulp.task("horizontalLayout", function() {
+    return gulp.src("src/assets/sass/layouts/horizontal/core/*")
     .pipe(sass.sync().on("error", sass.logError))
     .pipe(sass({
-        includePaths: ["src/assets/sass/layouts/vertical/core"]
+        includePaths: ["src/assets/sass/layouts/horizontal/core"]
     }))
-    .pipe(gulp.dest("./dist/assets/css/layouts/vertical/core"))
+    .pipe(gulp.dest("./dist/assets/css/layouts/horizontal/core"))
     .pipe(minifyCSS())
-    .pipe(gulp.dest("./dist/assets/css/layouts/vertical/core"))
-    .pipe(gulp.dest("./public/assets/css/layouts/vertical/core"))
+    .pipe(gulp.dest("./dist/assets/css/layouts/horizontal/core"))
+    .pipe(gulp.dest("./public/assets/css/layouts/horizontal/core"))
 })
 
-// // // CREATE THEME FILES FOR VERTICAL LAYOUT
-gulp.task("verticalThemes", function() {
-    return gulp.src("src/assets/sass/layouts/vertical/themes/*")
+// // // CREATE THEME FILES FOR horizontal LAYOUT
+gulp.task("horizontalThemes", function() {
+    return gulp.src("src/assets/sass/layouts/horizontal/themes/*")
     .pipe(sass.sync().on("error", sass.logError))
     .pipe(sass({
-        includePaths: ["src/assets/sass/layouts/vertical/themes"]
+        includePaths: ["src/assets/sass/layouts/horizontal/themes"]
     }))
-    .pipe(gulp.dest("./dist/assets/css/layouts/vertical/themes"))
+    .pipe(gulp.dest("./dist/assets/css/layouts/horizontal/themes"))
     .pipe(minifyCSS())
-    .pipe(gulp.dest("./dist/assets/css/layouts/vertical/themes"))
-    .pipe(gulp.dest("./public/assets/css/layouts/vertical/themes"))
+    .pipe(gulp.dest("./dist/assets/css/layouts/horizontal/themes"))
+    .pipe(gulp.dest("./public/assets/css/layouts/horizontal/themes"))
 })
 
-// // // CREATE BUNDLES FOR VERTICAL MENU TYPES
-gulp.task("verticalLayoutMenu", function() {
-    return gulp.src("src/assets/sass/layouts/vertical/menu-type/*")
+// // // CREATE BUNDLES FOR horizontal MENU TYPES
+gulp.task("horizontalLayoutMenu", function() {
+    return gulp.src("src/assets/sass/layouts/horizontal/menu-type/*")
     .pipe(sass.sync().on("error", sass.logError))
     .pipe(sass({
-        includePaths: ["src/assets/sass/layouts/vertical/menu-type"]
+        includePaths: ["src/assets/sass/layouts/horizontal/menu-type"]
     }))
-    .pipe(gulp.dest("./dist/assets/css/layouts/vertical/menu-type"))
+    .pipe(gulp.dest("./dist/assets/css/layouts/horizontal/menu-type"))
     .pipe(minifyCSS())
-    .pipe(gulp.dest("./dist/assets/css/layouts/vertical/menu-type"))
-    .pipe(gulp.dest("./public/assets/css/layouts/vertical/menu-type"))
+    .pipe(gulp.dest("./dist/assets/css/layouts/horizontal/menu-type"))
+    .pipe(gulp.dest("./public/assets/css/layouts/horizontal/menu-type"))
 })
 
 // // //ADD WATCH
 gulp.task("watch", function() {
     gulp.watch("src/**/*.{js,jsx}")
-    gulp.watch("src/assets/sass/**/*.scss", gulp.series(["bootstrap","sass","verticalLayout"]))
+    gulp.watch("src/assets/sass/**/*.scss", gulp.series(["bootstrap","sass","horizontalLayout"]))
 })
 
-gulp.task("default", gulp.series(["bootstrap", "sass" , "verticalThemes" , "verticalLayoutMenu", "verticalLayout", 'watch']))
+gulp.task("default", gulp.series(["bootstrap", "sass" , "horizontalThemes" , "horizontalLayoutMenu", "horizontalLayout", 'watch']))

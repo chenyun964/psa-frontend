@@ -2,12 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { Route, Switch } from 'react-router';
 
 import CheckLogin from './modules/authentication/CheckLogin';
-
-import SideNav from './modules/nav/SideNav';
-import TopNav from './modules/nav/TopNav';
+import Nav from './modules/nav/Nav';
 
 import Login from './modules/authentication/Login';
 import Dashboard from './modules/dashboard/Dashboard';
+
+import Vessel from './modules/vessel/Vessel';
 
 class GuestRoutes extends Component {
 
@@ -31,15 +31,15 @@ class LoginRoutes extends Component {
   render() {
     return (
       <Fragment>
-        <SideNav />
+        <Nav />
         <div className="content-wrapper">
-          <TopNav />
-          <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route exact path='/dashboard' component={Dashboard} />
-          </Switch>
-        </div>
-      </Fragment>
+            <Switch>
+              <Route exact path="/" component={Dashboard} />
+              <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/vessel' component={Vessel} />
+            </Switch>
+          </div>
+      </Fragment >
     );
   }
 }
