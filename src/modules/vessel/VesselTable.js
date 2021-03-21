@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTable, usePagination, useSortBy, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
-import { matchSorter } from 'match-sorter';
 
 function GlobalFilter({
     preGlobalFilteredRows,
@@ -32,25 +31,30 @@ function GlobalFilter({
     )
 }
 
+function StatusDesign(cell){
+    switch(cell.cell.value){
+        case "BERTHING":
+            return (
+                <span class="badge badge-pill badge-info">{cell.cell.render('Cell')}</span>
+            )
+        case "ALONGSIDE":
+            return (
+                <span class="badge badge-pill badge-warning">{cell.cell.render('Cell')}</span>
+            )
+        case "UNBERTHED":
+            return (
+                <span class="badge badge-pill badge-sucess">{cell.cell.render('Cell')}</span>
+            )
+        default:
+            return (
+                <span class="badge badge-pill badge-danger">{cell.cell.render('Cell')}</span>
+            )
+    }
+    
+}
+
 
 function Table({ columns, data }) {
-    const filterTypes = React.useMemo(
-        () => ({
-            // "startWith"
-            text: (rows, id, filterValue) => {
-                return rows.filter(row => {
-                    const rowValue = row.values[id]
-                    return rowValue !== undefined
-                        ? String(rowValue)
-                            .toLowerCase()
-                            .startsWith(String(filterValue).toLowerCase())
-                        : true
-                })
-            },
-        }),
-        []
-    )
-
     // Use the state and functions returned from useTable to build your UI
     const {
         getTableProps,
@@ -65,9 +69,7 @@ function Table({ columns, data }) {
         gotoPage,
         nextPage,
         previousPage,
-        setPageSize,
         pageIndex,
-        pageSize,
         state,
         visibleColumns,
         preGlobalFilteredRows,
@@ -77,7 +79,15 @@ function Table({ columns, data }) {
             columns,
             data,
             pageIndex: 0,
-            pageSize: 20
+            pageSize: 20,
+            initialState:{
+                sortBy:[
+                    {
+                        id:'fullVslM',
+                        desc: false
+                    }
+                ]
+            }
         },
 
         useFilters, // useFilters!
@@ -108,8 +118,8 @@ function Table({ columns, data }) {
                                     <span>
                                         {column.isSorted
                                             ? column.isSortedDesc
-                                                ? <i class="la la-sort-alpha-desc"></i>
-                                                : <i class="la la-sort-alpha-asc"></i>
+                                                ? <i className="la la-sort-amount-desc"></i>
+                                                : <i className="la la-sort-amount-asc"></i>
                                             : ''}
                                     </span>
                                 </th>
@@ -123,7 +133,17 @@ function Table({ columns, data }) {
                         return (
                             <tr {...row.getRowProps()} onClick={() => window.location.replace('/vessel/' + row.original.id)}>
                                 {row.cells.map(cell => {
-                                    return <td key={i} role="row" className="odd" {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                    return <td key={i} role="row" className="odd" {...cell.getCellProps()}>
+                                        {cell.column.Header == "#" &&
+                                            <i class="la la-star"></i>
+                                        }
+                                        {cell.column.Header == "Status" &&
+                                                <StatusDesign cell={cell} />
+                                        }
+                                        {cell.column.Header != "Status" &&
+                                            <span>{!cell.value ? '-' :  cell.render('Cell')}</span>
+                                        }
+                                    </td>
                                 })}
                             </tr>
                         )
@@ -153,6 +173,7 @@ function Table({ columns, data }) {
                     | Go to page:{' '}
                     <input
                         type="number"
+                        min="1"
                         defaultValue={pageIndex + 1}
                         onChange={e => {
                             const page = e.target.value ? Number(e.target.value) - 1 : 0
@@ -174,28 +195,28 @@ function CreateTable(data) {
                 accessor: 'id', // accessor is the "key" in the data
             },
             {
-                Header: 'fullVslM',
+                Header: 'Full Name',
                 accessor: 'fullVslM', // accessor is the "key" in the data
                 filter: 'fuzzyText',
             },
             {
-                Header: 'fullInvoyN',
-                accessor: 'fullInvoyN',
+                Header: 'Incoming Voyage',
+                accessor: 'inVoyN',
             },
             {
-                Header: 'berthN',
-                accessor: 'berthN',
+                Header: 'Outgoing Voyage',
+                accessor: 'outVoyN',
             },
             {
-                Header: 'bthgDt',
+                Header: 'Berth Time Required',
                 accessor: 'bthgDt',
             },
             {
-                Header: 'unbthgDt',
-                accessor: 'unbthgDt',
+                Header: 'Berth Number',
+                accessor: 'berthN',
             },
             {
-                Header: 'status',
+                Header: 'Status',
                 accessor: 'status',
             },
         ],
@@ -203,7 +224,7 @@ function CreateTable(data) {
     )
 
     return (
-        <Table columns={columns} data={data.data} />
+        <Table columns={columns} data={data.data}/>
     )
 }
 

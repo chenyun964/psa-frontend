@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LoginModel from '../authentication/LoginModel';
+import NotificationModel from '../notification/NotificationModel';
 import { Link } from "react-router-dom";
 
 class Navbar extends Component {
@@ -7,9 +8,24 @@ class Navbar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: 'Chen Yun',
-			email: 'chenyun964@gmail.com'
+			username: '',
+			email: '',
+			notifications: [],
 		}
+	}
+
+	componentDidMount() {
+		let username = LoginModel.getUserName();
+		this.setState({
+			username: username,
+			email: LoginModel.getUserEmail()
+		})
+		NotificationModel.list(username).then((res) => {
+			console.log(res.data);
+			this.setState({ notifications: res.data });
+		}).catch((error) => {
+			console.log(error);
+		});
 	}
 
 	signout() {
@@ -24,7 +40,7 @@ class Navbar extends Component {
 				<div className="header-top">
 					<ul className="mobile-only navbar-nav nav-left">
 						<li className="nav-item">
-							<a href="javascript:void(0)" data-toggle-state="aside-left-open">
+							<a data-toggle-state="aside-left-open">
 								<i className="icon dripicons-align-left"></i>
 							</a>
 						</li>
@@ -57,7 +73,7 @@ class Navbar extends Component {
 									<nav className="top-toolbar navbar flex-nowrap">
 										<ul className="navbar-nav nav-right">
 											<li className="nav-item dropdown dropdown-notifications dropdown-menu-lg">
-												<a href="javascript:void(0)" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 													<i className="icon dripicons-bell"></i>
 												</a>
 												<div className="dropdown-menu dropdown-menu-right">
@@ -68,13 +84,20 @@ class Navbar extends Component {
 														<div className="card-body">
 															<div className="card-container-wrapper">
 																<div className="card-container">
-																	<div className="timeline timeline-border">
-																		<div className="timeline-list">
-																			<div className="timeline-info">
-																				<div>Prep for bi-weekly meeting with <a href="javascript:void(0)"><strong>Steven Weinberg</strong></a> </div>
-																				<small className="text-muted">07/05/18, 2:00 PM</small>
-																			</div>
-																		</div>
+																	<div className="timeline">
+																		{this.state.notifications.length > 0 && this.state.notifications.map((notifi, index) => {
+																			return (
+																				<div className={"timeline-list" + (notifi.checked ? "" : " timeline-accent")} key={index}>
+																					<div className="timeline-info">
+																						<div>{notifi.content}</div>
+																						<small className="text-muted">{notifi.create_at}</small>
+																					</div>
+																				</div>
+																			)
+																		})}
+																		{this.state.notifications.length == 0 &&
+																			<div> No Notification at the moment </div>
+																		}
 																	</div>
 																</div>
 															</div>
@@ -83,7 +106,7 @@ class Navbar extends Component {
 												</div>
 											</li>
 											<li className="nav-item dropdown dropdown-menu-lg">
-												<a href="javascript:void(0)" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 													<i className="icon dripicons-user"></i>
 												</a>
 												<div className="dropdown-menu dropdown-menu-right dropdown-menu-accout">
@@ -96,7 +119,7 @@ class Navbar extends Component {
 														</div>
 													</div>
 													<a className="dropdown-item" href="/setting"><i className="icon dripicons-gear"></i> Account Settings </a>
-													<button className="dropdown-item" href="/" onClick={() => this.signout()}><i className="icon dripicons-lock-open"></i> Sign Out</button>
+													<button className="dropdown-item" onClick={() => this.signout()}><i className="icon dripicons-lock-open"></i> Sign Out</button>
 												</div>
 											</li>
 										</ul>
@@ -107,7 +130,7 @@ class Navbar extends Component {
 					</div>
 					<ul className="mobile-only navbar-nav nav-right">
 						<li className="nav-item">
-							<a href="javascript:void(0)" data-toggle-state="mobile-topbar-toggle">
+							<a data-toggle-state="mobile-topbar-toggle">
 								<i className="icon dripicons-dots-3 rotate-90"></i>
 							</a>
 						</li>
@@ -122,7 +145,7 @@ class Navbar extends Component {
 									<Link to="/dashboard"><i className="icon dripicons-meter"></i><span className="hide-menu">Dashboard</span></Link>
 								</li>
 								<li>
-									<Link to="/vessel"><i class="la la-ship"></i><span className="hide-menu">Vessel</span></Link>
+									<Link to="/vessel"><i className="la la-ship"></i><span className="hide-menu">Vessel</span></Link>
 								</li>
 							</ul>
 						</nav>

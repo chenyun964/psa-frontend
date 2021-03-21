@@ -11,6 +11,14 @@ class VesselModel {
     return axiosJwt.get(config['vessel_get_api'] + "/" + vessel_id);
   }
 
+  async addFavourite(data){
+    return axiosJwt.post(config['favourite_add_api'], data);
+  }
+
+  async removeFavourite(data){
+    return axiosJwt.post(config['favourite_remove_api'], data);
+  }
+
 }
 
 export default new VesselModel();

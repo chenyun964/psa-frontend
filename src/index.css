@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.vessel-info-section .col-5{
+  font-weight: bold;
+}
+
+.pagination .btn{
+  border-radius: 5px;
+  margin: 2px 5px;
+}

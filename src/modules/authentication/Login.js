@@ -14,6 +14,7 @@ class Login extends Component {
 			signInPassword: "",
 
 			signUpUsername: "",
+			signUpName: "",
 			signUpPassword: "",
 			signUpEmail: "",
 			signUPConfirmPassword: "",
@@ -60,14 +61,15 @@ class Login extends Component {
 			email: this.state.signUpEmail,
 			password: this.state.signUpPassword,
 			role: "admin",
-			name: "Chen Yun"
+			name: this.state.signUpName
 		}
 
 		LoginModel.register(data).then(res => {
 			this.setState({
-				isLoading: false
+				signInUsername: this.state.signUpUsername,
+				signInPassword: this.state.signUpPassword,
 			})
-			console.log(res.data);
+			this.doSignIn();
 		}).catch(error => {
 			this.setState({
 				isLoading: false
@@ -124,12 +126,18 @@ class Login extends Component {
 		} else {
 			this.setState({ signUpEmail: e.target.value });
 		}
-
 	}
 
 	handleConfirmPasswordChange(e) {
 		this.clearError();
 		this.setState({ signUPConfirmPassword: e.target.value });
+	}
+
+	handleNameChange(e) {
+		this.clearError();
+		this.setState({
+			signUpName: e.target.value
+		})
 	}
 
 	handleSubmit = (e) => {
@@ -147,6 +155,7 @@ class Login extends Component {
 	}
 
 	goSignIn() {
+		this.clearInput();
 		this.setState({
 			isSignIn: true,
 			isSignUp: false,
@@ -155,6 +164,7 @@ class Login extends Component {
 	}
 
 	goSignUp() {
+		this.clearInput();
 		this.setState({
 			isSignIn: false,
 			isSignUp: true,
@@ -163,6 +173,7 @@ class Login extends Component {
 	}
 
 	goForget() {
+		this.clearInput();
 		this.setState({
 			isSignIn: false,
 			isSignUp: false,
@@ -182,6 +193,7 @@ class Login extends Component {
 			signUpUsername: "",
 			signUpPassword: "",
 			signUpEmail: "",
+			signUpName: "",
 			signUPConfirmPassword: "",
 			signInUsername: "",
 			signInPassword: "",
@@ -204,23 +216,27 @@ class Login extends Component {
 									{!this.state.isLoading &&
 										< div className="offset-md-2 col-md-8 col-12">
 											<form onSubmit={this.handleSubmit}>
-												<div class="form-group">
+												<div className="form-group">
 													<label>Username</label>
 													<input type="text" className="form-control" placeholder="Username" value={this.state.signUpUsername} onChange={(e) => this.handleUsernameChange(e)} required />
 												</div>
-												<div class="form-group">
+												<div className="form-group">
 													<label>Email</label>
 													<input type="email" className="form-control" placeholder="Email" value={this.state.signUpEmail} onChange={(e) => this.handleEmailChange(e)} required />
 												</div>
-												<div class="form-group">
-													<label for="">Password</label>
+												<div className="form-group">
+													<label>Name</label>
+													<input type="text" className="form-control" placeholder="Display name" value={this.state.signUpName} onChange={(e) => this.handleNameChange(e)} required />
+												</div>
+												<div className="form-group">
+													<label>Password</label>
 													<input type="password" className={"form-control" + (!this.state.signUpPasswordError ? "" : " input-error")} placeholder="Password" value={this.state.signUpPassword} onChange={(e) => this.handlePasswordChange(e)} required />
 													{this.state.signUpPasswordError != '' &&
 														<p className="error-msg">{this.state.signUpPasswordError}</p>
 													}
 												</div>
-												<div class="form-group">
-													<label for="">Confirm Password</label>
+												<div Name="form-group">
+													<label>Confirm Password</label>
 													<input type="password" className={"form-control" + (!this.state.signUpPasswordError ? "" : " input-error")} placeholder="Confirm Password" value={this.state.signUPConfirmPassword} onChange={(e) => this.handleConfirmPasswordChange(e)} />
 													{this.state.signUpPasswordError != '' &&
 														<p className="error-msg">{this.state.signUpPasswordError}</p>
@@ -237,6 +253,7 @@ class Login extends Component {
 									<div className="right-side-bar text-center">
 										<img src="../assets/img/PSAI_Logo.png" alt="PSA Logo" />
 										<h1 className="m-t-40 m-b-20">Welcome Back!</h1>
+										<p className="m-b-20">To keep connected with us please login with your personal info</p>
 										<button className="btn change-mode-btn" onClick={() => this.goSignIn()}>SIGN IN</button>
 									</div>
 								</div>
@@ -255,19 +272,19 @@ class Login extends Component {
 									</div>
 								</div>
 								<div className="col-12 col-md-7">
-									<h1 className="title text-center">Create Account</h1>
+									<h1 className="title text-center">Sign In to PSA</h1>
 									{this.state.isLoading &&
 										<Preloader />
 									}
 									{!this.state.isLoading &&
 										<div className="offset-md-2 col-md-8 col-12">
 											<form onSubmit={this.handleSubmit}>
-												<div class="form-group">
+												<div className="form-group">
 													<label>Username</label>
 													<input type="text" className="form-control" placeholder="Username" value={this.state.username} onChange={(e) => this.handleUsernameChange(e)} required />
 												</div>
-												<div class="form-group">
-													<label for="">Password</label>
+												<div className="form-group">
+													<label>Password</label>
 													<input type="password" className="form-control" placeholder="Passowrd" value={this.state.password} onChange={(e) => this.handlePasswordChange(e)} required />
 												</div>
 												<div className="col-12 m-b-20 text-center">
@@ -294,7 +311,7 @@ class Login extends Component {
 									{!this.state.isLoading &&
 										<div className="offset-md-2 col-md-8 col-12">
 											<form onSubmit={this.handleSubmit}>
-												<div class="form-group">
+												<div className="form-group">
 													<label>Email</label>
 													<input type="email" className="form-control" placeholder="Email" value={this.state.forgetEmail} onChange={(e) => this.handleEmailChange(e)} required />
 												</div>
@@ -308,9 +325,9 @@ class Login extends Component {
 								<div className="col-12 col-md-5">
 									<div className="right-side-bar text-center">
 										<img src="../assets/img/PSAI_Logo.png" alt="PSA Logo" />
-										<h1 className="m-t-40 m-b-10">Hello, Friend!</h1>
-										<p className="m-b-20">Enter your personal details and start journey with us</p>
-										<button className="btn change-mode-btn" onClick={() => this.goSignUp()}>SIGN UP</button>
+										<h1 className="m-t-40 m-b-20">Welcome Back!</h1>
+										<p className="m-b-20">To keep connected with us please login with your personal info</p>
+										<button className="btn change-mode-btn" onClick={() => this.goSignIn()}>SIGN IN</button>
 									</div>
 								</div>
 							</div>

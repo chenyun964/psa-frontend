@@ -34,6 +34,11 @@ class LoginModel {
     }
 
     storeTokens(data){
+        let user = {
+            username : data.username,
+            email : data.email
+        }
+        cookies.set("_psauser", user ,  {maxAge:maxage});
         cookies.set("_psausert", data.token, {maxAge: maxage});
     }
 
@@ -47,10 +52,27 @@ class LoginModel {
 
     async destory(){
         cookies.remove('_psausert',{ path: '/' });
+        cookies.remove('_psauser',{ path: '/' });
     }
 
     retrieveToken(){
         return cookies.get("_psausert");
+    }
+
+    getUserName(){
+        var user = cookies.get("_psauser");
+        if(!user || user == "" || user == null){
+           return;
+        }
+        return user.username;
+    }
+
+    getUserEmail(){
+        var user = cookies.get("_psauser");
+        if(!user || user == "" || user == null){
+           return;
+        }
+        return user.email;
     }
 }
 

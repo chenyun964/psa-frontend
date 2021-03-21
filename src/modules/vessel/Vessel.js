@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import VesselModel from './VesselModel';
-import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { useTable } from 'react-table';
 import Table from './VesselTable';
 
 class Vessel extends Component {
@@ -33,32 +31,36 @@ class Vessel extends Component {
     }
 
     render() {
-        
+
         return (
             <div className="clinic-page container">
-                <header className="page-header">
-                    <div className="d-flex align-items-center">
-                        <div className="mr-auto">
-                            <h1>{this.state.title}</h1>
-                        </div>
-                    </div>
-                </header>
-                
-                <section className="page-content">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="card">
-                                <div className="card-body">
-                                    <div className="row">
-                                        <div className="col-sm-12">
-                                            <Table data={this.state.vessels} />
+                <div class="row">
+                    <div class="col-12 content">
+                        <header className="page-header">
+                            <div className="d-flex align-items-center">
+                                <div className="mr-auto">
+                                    <h1>{this.state.title}</h1>
+                                </div>
+                            </div>
+                        </header>
+
+                        <section className="page-content">
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <div className="row">
+                                                <div className="col-sm-12">
+                                                    <Table data={this.state.vessels} />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
-                </section>
+                </div>
             </div>
         );
     }
