@@ -251,7 +251,7 @@ class Login extends Component {
 								</div>
 								<div className="col-12 col-md-5">
 									<div className="right-side-bar text-center">
-										<img src="../assets/img/PSAI_Logo.png" alt="PSA Logo" />
+										<img src="../assets/img/PSA_Logo_White.png" alt="PSA Logo" />
 										<h1 className="m-t-40 m-b-20">Welcome Back!</h1>
 										<p className="m-b-20">To keep connected with us please login with your personal info</p>
 										<button className="btn change-mode-btn" onClick={() => this.goSignIn()}>SIGN IN</button>
@@ -265,7 +265,7 @@ class Login extends Component {
 							<div className="row">
 								<div className="col-12 col-md-5">
 									<div className="left-side-bar text-center">
-										<img src="../assets/img/PSAI_Logo.png" alt="PSA Logo" />
+										<img src="../assets/img/PSA_Logo_White.png" alt="PSA Logo" />
 										<h1 className="m-t-40 m-b-10">Hello, Friend!</h1>
 										<p className="m-b-20">Enter your personal details and start journey with us</p>
 										<button className="btn change-mode-btn" onClick={() => this.goSignUp()}>SIGN UP</button>
@@ -324,7 +324,7 @@ class Login extends Component {
 								</div>
 								<div className="col-12 col-md-5">
 									<div className="right-side-bar text-center">
-										<img src="../assets/img/PSAI_Logo.png" alt="PSA Logo" />
+										<img src="../assets/img/PSA_Logo_White.png" alt="PSA Logo" />
 										<h1 className="m-t-40 m-b-20">Welcome Back!</h1>
 										<p className="m-b-20">To keep connected with us please login with your personal info</p>
 										<button className="btn change-mode-btn" onClick={() => this.goSignIn()}>SIGN IN</button>

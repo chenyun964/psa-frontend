@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import DashboardModel from './Model/DashboardModel.js';
 import LoginModel from '../authentication/LoginModel';
 import NotificationModel from '../notification/NotificationModel';
+import VesselModel from '../vessel/VesselModel';
 
 class Dashboard extends Component {
 
@@ -9,7 +10,8 @@ class Dashboard extends Component {
 		super(props);
 		this.state = {
 			title: "Dashboard",
-			notifications: []
+			notifications: [],
+			favourites: []
 		}
 	}
 
@@ -47,11 +49,12 @@ class Dashboard extends Component {
 							<div className="row">
 								<div className="col-xl-7 col-xxl-9">
 									<div className="card">
-										<h5 className="card-header">
-											Favourited Vessel
-								</h5>
+										<h5 className="card-header">Favourited Vessel</h5>
 										<div className="card-body">
 											<div id="monthly-budget">
+												{this.state.favourites.length == 0 &&
+													<div> You have yet to favourite any vessel </div>
+												}
 											</div>
 										</div>
 									</div>

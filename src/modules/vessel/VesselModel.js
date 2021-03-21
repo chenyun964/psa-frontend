@@ -18,7 +18,6 @@ class VesselModel {
   async removeFavourite(data){
     return axiosJwt.post(config['favourite_remove_api'], data);
   }
-
 }
 
 export default new VesselModel();
