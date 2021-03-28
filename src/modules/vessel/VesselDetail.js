@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 import VesselModel from './VesselModel';
 import VesselHistory from './VesselHistory';
+import LoginModel from './../authentication/LoginModel';
 
 class VesselDetail extends Component {
   constructor(props) {
@@ -17,9 +18,9 @@ class VesselDetail extends Component {
   componentDidMount() {
     let tokens = window.location.href.split('/');;
     let id = tokens[4];
-    if (id) {
-      VesselModel.get(id).then((res) => {
-        console.log(res);
+    let username = LoginModel.getUserName();
+    if (id && username) {
+      VesselModel.get(username, id).then((res) => {
         this.setState({
           vessel: res.data
         })
@@ -30,6 +31,7 @@ class VesselDetail extends Component {
   }
 
   addFavourite() {
+    let username = LoginModel.getUserName();
     let data = {
       uid: 397,
       vsid: this.state.vessel.id
@@ -130,44 +132,49 @@ class VesselDetail extends Component {
                   </div>
                 </div>
                 <hr />
-
-                <div className="row">
-                  <div className="col-md-6 col-12">
-                    <div className="m-b-10 row">
-                      <div className="col-12">
-                        <small>Last Updated at: {this.state.vessel.fullVslM}</small>
+                {this.state.vessel.vesselInfo != null && 
+                  <div className="row">
+                    <div className="col-md-6 col-12">
+                      <div className="m-b-10 row">
+                        <div className="col-12">
+                          <small>Last Updated at: {this.state.vessel.vesselInfo.update_at}</small>
+                        </div>
+                      </div>
+                      <div className="m-b-10 row">
+                        <div className="col-5"> Average Speed: </div>
+                        <div className="col-7"> {this.state.vessel.vesselInfo.avg_speed + ' km/h'}</div>
+                      </div>
+                      <div className="m-b-10 row">
+                        <div className="col-5"> Distance to go: </div>
+                        <div className="col-7"> {this.state.vessel.vesselInfo.distance_to_go + ' km'}</div>
+                      </div>
+                      <div className="m-b-10 row">
+                        <div className="col-5"> Maximum Speed: </div>
+                        <div className="col-7"> {this.state.vessel.vesselInfo.max_speed + ' km/h'}</div>
+                      </div>
+                      <div className="m-b-10 row">
+                        <div className="col-5"> Predicted berthing time: </div>
+                        <div className="col-7"> 
+                          {this.state.vessel.vesselInfo.is_patching_activated == 1 ? this.state.vessel.vesselInfo.patching_Predicted_Btr : this.state.vessel.vesselInfo.predicted_btr}
+                        </div>
                       </div>
                     </div>
-                    <div className="m-b-10 row">
-                      <div className="col-5"> Average Speed: </div>
-                      <div className="col-7"> {this.state.vessel.fullVslM}</div>
-                    </div>
-                    <div className="m-b-10 row">
-                      <div className="col-5"> Distance: </div>
-                      <div className="col-7"> {this.state.vessel.abbrVslM}</div>
-                    </div>
-                    <div className="m-b-10 row">
-                      <div className="col-5"> Maximum Speed: </div>
-                      <div className="col-7"> {this.state.vessel.inVoyN}</div>
-                    </div>
-                    <div className="m-b-10 row">
-                      <div className="col-5"> Incoming Voyage Number: </div>
-                      <div className="col-7"> {this.state.vessel.outVoyN}</div>
-                    </div>
-                    <div className="m-b-10 row">
-                      <div className="col-5"> Predicted berthing time: </div>
-                      <div className="col-7"> {this.state.vessel.outVoyN}</div>
-                    </div>
-                    <div className="m-b-10 row">
-                      <div className="col-5"> Predicted berthing time: </div>
-                      <div className="col-7"> {this.state.vessel.outVoyN}</div>
+                    <div className="col-md-6 col-12">
+                      <VesselHistory data={this.state.vessel.speedHistory}/>
                     </div>
                   </div>
-                  <div className="col-md-6 col-12">
-                    <VesselHistory />
-                  </div>
+                }
+                {this.state.vessel.vesselInfo == null && 
+                  <div className="row">
+                    <div className="col-md-6 col-12">
+                      <div className="m-b-10 row">
+                        <div className="col-12">
+                          <p>No record at the moment, try again later.</p>
+                        </div>
+                      </div>
+                    </div>
                 </div>
-
+                }
               </div>
             </div>
           </div>

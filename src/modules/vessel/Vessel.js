@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import VesselModel from './VesselModel';
+import LoginModel from './../authentication/LoginModel';
 import { toast } from 'react-toastify';
 import Table from './VesselTable';
 
@@ -22,7 +23,8 @@ class Vessel extends Component {
     }
 
     getList() {
-        VesselModel.list().then((res) => {
+        let username = LoginModel.getUserName();
+        VesselModel.list(username).then((res) => {
             this.setState({ vessels: res.data });
         }).catch((error) => {
             toast('Fail to retireve vessels!', { type: toast.TYPE.ERROR });

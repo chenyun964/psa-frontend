@@ -62,7 +62,7 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.local react-scripts start",
-    "build": "react-scripts build",
+    "build": "gulp bootstrap && gulp sass && gulp horizontalLayout && env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import LoginModel from "../authentication/LoginModel";
 import SettingModel from "./SettingModel";
 import { toast } from 'react-toastify';
@@ -15,7 +15,9 @@ class Setting extends Component {
             title: "Settings",
             username: "",
             name: "",
-            email: ""
+            email: "",
+            emailVerified: false,
+            emailPref: null
         }
     }
 
@@ -97,7 +99,7 @@ class Setting extends Component {
                                                 <Preloader />
                                             }
                                             {!this.state.isLoading &&
-                                                <div className="tab-content" id="my-account-tabsContent">
+                                                <div className="tab-content">
                                                     <div className="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                                         <h2 className="card-heading p-b-20">Profile<button className="btn btn-danger float-right" onClick={() => this.deleteUser()}>Delete</button></h2>
                                                         <form onSubmit={this.handleSubmit}>
@@ -108,11 +110,23 @@ class Setting extends Component {
                                                                 </div>
                                                                 <div className="form-group">
                                                                     <label>Your name</label>
-                                                                    <input type="text" className="form-control" autocomplete="name" placeholder="Enter your display name" value={this.state.name} onChange={(e) => this.handleNameChange(e)} required />
+                                                                    <input type="text" className="form-control" autoComplete="name" placeholder="Enter your display name" value={this.state.name} onChange={(e) => this.handleNameChange(e)} required />
                                                                 </div>
                                                                 <div className="form-group">
-                                                                    <label>Email</label>
-                                                                    <input type="email" className="form-control" autocomplete="email" placeholder="Enter email" value={this.state.email} onChange={(e) => this.handleEmailChange(e)} required />
+                                                                    <label>Email </label>
+                                                                    {this.state.emailVerified &&
+                                                                        <span className="badge badge-pill badge-success"> Verified</span>
+                                                                    }
+                                                                    {!this.state.emailVerified &&
+                                                                        <Fragment>
+                                                                            <span className="badge badge-pill badge-danger">Not Verified</span>
+                                                                            <button className="btn btn-primary">Send Verification</button>
+                                                                        </Fragment>
+                                                                    }
+                                                                    <input type="email" className="form-control" autoComplete="email" placeholder="Enter email" value={this.state.email} onChange={(e) => this.handleEmailChange(e)} required />
+                                                                    {!this.state.emailVerified &&
+                                                                        <small> You will not receieve any notfication via email if your email is not verified</small>
+                                                                    }
                                                                 </div>
                                                                 <button type="submit" className="btn btn-primary">Update Profile</button>
                                                             </div>

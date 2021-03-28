@@ -3,12 +3,12 @@ import config from '../../config/config';
 
 class VesselModel {
 
-  async list(){
-    return axiosJwt.get(config['vessel_list_api']);
+  async list(username){
+    return axiosJwt.get(config['vessel_list_api'] + "/" + username);
   }
 
-  async get(vessel_id){
-    return axiosJwt.get(config['vessel_get_api'] + "/" + vessel_id);
+  async get(username, vessel_id){
+    return axiosJwt.get(config['vessel_get_api'] + "/" + username + "/" + vessel_id);
   }
 
   async addFavourite(data){

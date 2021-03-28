@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useTable, usePagination, useSortBy, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
 
 function GlobalFilter({
@@ -43,18 +43,89 @@ function StatusDesign(cell){
             )
         case "UNBERTHED":
             return (
-                <span class="badge badge-pill badge-sucess">{cell.cell.render('Cell')}</span>
+                <span class="badge badge-pill badge-success">{cell.cell.render('Cell')}</span>
             )
         default:
             return (
                 <span class="badge badge-pill badge-danger">{cell.cell.render('Cell')}</span>
             )
     }
-    
 }
 
+function SelectColumnFilter({
+    column: { filterValue, setFilter, preFilteredRows, id },
+  }) {
+    // Calculate the options for filtering
+    // using the preFilteredRows
+    const options = React.useMemo(() => {
+      const options = new Set()
+      preFilteredRows.forEach(row => {
+        options.add(row.values[id])
+      })
+      return [...options.values()]
+    }, [id, preFilteredRows])
+  
+    // Render a multi-select box
+    return (
+      <select
+        value={filterValue}
+        onChange={e => {
+          setFilter(e.target.value || undefined)
+        }}
+      >
+        <option value="">All</option>
+        {options.map((option, i) => (
+          <option key={i} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    )
+  }
+
+  function DefaultColumnFilter({
+    column: { filterValue, preFilteredRows, setFilter },
+  }) {
+    const count = preFilteredRows.length
+  
+    return (
+      <input
+        value={filterValue || ''}
+        onChange={e => {
+          setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+        }}
+        placeholder={`Search ${count} records...`}
+      />
+    )
+  }
 
 function Table({ columns, data }) {
+    const filterTypes = React.useMemo(
+        () => ({
+          // Or, override the default text filter to use
+          // "startWith"
+          text: (rows, id, filterValue) => {
+            return rows.filter(row => {
+              const rowValue = row.values[id]
+              return rowValue !== undefined
+                ? String(rowValue)
+                    .toLowerCase()
+                    .startsWith(String(filterValue).toLowerCase())
+                : true
+            })
+          },
+        }),
+        []
+      )
+
+      const defaultColumn = React.useMemo(
+        () => ({
+          // Let's set up our default Filter UI
+          Filter: DefaultColumnFilter,
+        }),
+        []
+      )
+
     // Use the state and functions returned from useTable to build your UI
     const {
         getTableProps,
@@ -69,8 +140,8 @@ function Table({ columns, data }) {
         gotoPage,
         nextPage,
         previousPage,
-        pageIndex,
         state,
+        state: { pageIndex },
         visibleColumns,
         preGlobalFilteredRows,
         setGlobalFilter
@@ -80,6 +151,7 @@ function Table({ columns, data }) {
             data,
             pageIndex: 0,
             pageSize: 20,
+            filterTypes,
             initialState:{
                 sortBy:[
                     {
@@ -113,16 +185,19 @@ function Table({ columns, data }) {
                     {headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                <Fragment>
+                                    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                                     {column.render('Header')}
-                                    <span>
-                                        {column.isSorted
-                                            ? column.isSortedDesc
-                                                ? <i className="la la-sort-amount-desc"></i>
-                                                : <i className="la la-sort-amount-asc"></i>
-                                            : ''}
-                                    </span>
-                                </th>
+                                        <span>
+                                            {column.isSorted
+                                                ? column.isSortedDesc
+                                                    ? <i className="la la-sort-amount-desc"></i>
+                                                    : <i className="la la-sort-amount-asc"></i>
+                                                : ''}
+                                        </span>
+                                        <div>{column.canFilter && column.Header == "Status" ? column.render('Filter') : null}</div>
+                                    </th>
+                                </Fragment>
                             ))}
                         </tr>
                     ))}
@@ -134,13 +209,16 @@ function Table({ columns, data }) {
                             <tr {...row.getRowProps()} onClick={() => window.location.replace('/vessel/' + row.original.id)}>
                                 {row.cells.map(cell => {
                                     return <td key={i} role="row" className="odd" {...cell.getCellProps()}>
-                                        {cell.column.Header == "#" &&
-                                            <i class="la la-star"></i>
+                                        {cell.column.Header == "#" && cell.value == null &&
+                                            <i class="la la-star-o vs-favourite-icon"></i>
+                                        }
+                                        {cell.column.Header == "#" && cell.value != null &&
+                                            <i class="la la-star vs-favourite-icon"></i>
                                         }
                                         {cell.column.Header == "Status" &&
                                                 <StatusDesign cell={cell} />
                                         }
-                                        {cell.column.Header != "Status" &&
+                                        {cell.column.Header != "Status" && cell.column.Header != "#" &&
                                             <span>{!cell.value ? '-' :  cell.render('Cell')}</span>
                                         }
                                     </td>
@@ -188,16 +266,14 @@ function Table({ columns, data }) {
 }
 
 function CreateTable(data) {
-    const columns = React.useMemo(
-        () => [
+    const columns = [
             {
                 Header: '#',
-                accessor: 'id', // accessor is the "key" in the data
+                accessor: 'favouriteId', // accessor is the "key" in the data
             },
             {
                 Header: 'Full Name',
                 accessor: 'fullVslM', // accessor is the "key" in the data
-                filter: 'fuzzyText',
             },
             {
                 Header: 'Incoming Voyage',
@@ -218,10 +294,11 @@ function CreateTable(data) {
             {
                 Header: 'Status',
                 accessor: 'status',
+                disableSortBy: true,
+                Filter: SelectColumnFilter,
+                filter: 'includes',
             },
-        ],
-        []
-    )
+        ]
 
     return (
         <Table columns={columns} data={data.data}/>
