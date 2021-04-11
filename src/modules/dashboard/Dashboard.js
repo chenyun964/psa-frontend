@@ -37,7 +37,7 @@ class Dashboard extends Component {
 					a++;
 				} else if (v.status == "ALONGSIDE") {
 					b++;
-				} else if (v.status == "UNBERTH") {
+				} else if (v.status == "UNBERTHED") {
 					c++;
 				}
 			})
@@ -95,7 +95,7 @@ class Dashboard extends Component {
 													<div class="col-md-12">
 														<div class="card-body">
 															<div class="icon-rounded icon-rounded-info float-left m-r-20">
-																<i class="icon dripicons-graph-bar"></i>
+																<i class="icon dripicons-enter"></i>
 															</div>
 															<h5 class="card-title m-b-5 counter">{this.state.berthingNum}</h5>
 															<h6 class="text-muted m-t-10">Berthing</h6>
@@ -104,7 +104,7 @@ class Dashboard extends Component {
 													<div class="col-md-12">
 														<div class="card-body">
 															<div class="icon-rounded icon-rounded-warning float-left m-r-20">
-																<i class="icon dripicons-graph-bar"></i>
+																<i class="icon dripicons-download"></i>
 															</div>
 															<h5 class="card-title m-b-5 counter">{this.state.alongSideNum}</h5>
 															<h6 class="text-muted m-t-10">Alongside</h6>
@@ -113,10 +113,10 @@ class Dashboard extends Component {
 													<div class="col-md-12">
 														<div class="card-body">
 															<div class="icon-rounded icon-rounded-success float-left m-r-20">
-																<i class="icon dripicons-graph-bar"></i>
+																<i class="icon dripicons-exit"></i>
 															</div>
 															<h5 class="card-title m-b-5 counter">{this.state.unberthNum}</h5>
-															<h6 class="text-muted m-t-10">Unberthing</h6>
+															<h6 class="text-muted m-t-10">Unberthed</h6>
 														</div>
 													</div>
 												</div>

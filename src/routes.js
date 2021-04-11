@@ -15,6 +15,8 @@ import VesselDetail from './modules/vessel/VesselDetail';
 import Setting from './modules/setting/Setting';
 import LoginModel from './modules/authentication/LoginModel';
 
+import Notfound from './modules/setting/Notfound';
+
 class NonLoginRoutes extends Component{
   componentDidMount(){
     // CheckLogin.ifLoginRedirect();
@@ -59,6 +61,7 @@ class LoginRoutes extends Component {
               <Route exact path='/vessel' component={Vessel} />
               <Route exact path='/vessel/:id' component={VesselDetail} />
               <Route exact path='/setting' component={Setting} />
+              <Route path='*' component={Notfound} />
             </Switch>
           </div>
       </Fragment >
@@ -91,7 +94,11 @@ class AllRoutes extends Component {
         <Route exact path="/(login)" component={NonLoginRoutes} />
         <Route exact path="/(resetpassword)" component={GuestRoutes} />
         <Route exact path="/(confirmemail)" component={GuestRoutes} />
+        {!this.state.loginStatus &&
+          <Route path='*' component={Notfound} />
+        }
         <Route component={LoginRoutes} />
+       
       </Switch>
     );
   }
