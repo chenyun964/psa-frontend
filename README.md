@@ -13,6 +13,8 @@ Before start testing/building the application, do remember to create the environ
 
 ## Running the application locally
 
+Before running other terminal commands, please run `npm install` to install all the necessary package and dependencies.
+
 In the project directory, you can run:
 
 ### `npm start`
