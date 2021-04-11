@@ -15,7 +15,7 @@ Before start testing/building the application, do remember to create the environ
 
 Before running other terminal commands, please run 
 - `npm install` to install all the necessary package and dependencies.
-- `gulp -w` to update and watch for styling(css, scss) files.
+- `gulp -w` to update and watch for styling(css, scss) files, you may stop once `watch...` is shown.
 
 In the project directory, you can run:
 
