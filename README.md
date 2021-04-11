@@ -7,6 +7,10 @@ For building and running the application you need:
 - [Node >= 10.16](https://nodejs.org/en/)
 - [npm >= 5.6](https://www.npmjs.com/package/npx)
 
+Before start testing/building the application, do remember to create the enviroment files, refer to `.env.example` :
+- `.env.local` - Use for local testing
+- `.env.production` - Use for deployment
+
 ## Running the application locally
 
 In the project directory, you can run:
