@@ -207,7 +207,7 @@ function Table({ columns, data }) {
                                 {row.cells.map(cell => {
                                     return <td key={i} role="row" className="odd" {...cell.getCellProps()}>
                                         {cell.column.Header == "#" &&
-                                            <i className={cell.value == null ? "la la-star-o vs-favourite-icon" : "la la-star vs-favourite-icon"} onClick={(e) => {
+                                            <i className={cell.value == null ? "la la-heart-o vs-favourite-icon" : "la la-heart vs-favourite-icon"} onClick={(e) => {
                                                 e.stopPropagation();
                                                 if(cell.value == null){
                                                     let username = LoginModel.getUserName();
@@ -217,14 +217,14 @@ function Table({ columns, data }) {
                                                     }
                                                     FavrouiteModel.add(data).then((res) => {
                                                         cell.value = res.data;
-                                                        e.target.className = "la la-star vs-favourite-icon";
+                                                        e.target.className = "la la-heart vs-favourite-icon";
                                                     }).catch((error) => {
                                                     toast('Fail to favourite vessel.', { type: toast.TYPE.ERROR });
                                                     })
                                                 } else{
                                                     FavrouiteModel.remove(cell.value).then((res) => {
                                                         cell.value = null;
-                                                        e.target.className = "la la-star-o vs-favourite-icon";
+                                                        e.target.className = "la la-heart-o vs-favourite-icon";
                                                     }).catch((error) => {
                                                         toast('Fail to remove favourite.', { type: toast.TYPE.ERROR });
                                                     })

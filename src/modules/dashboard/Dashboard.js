@@ -76,7 +76,7 @@ class Dashboard extends Component {
 								<div className="row">
 									<div className="col-xl-8 col-xxl-9">
 										<div className="card">
-											<h5 className="card-header">Vessel For the day</h5>
+											<h5 className="card-header">Incoming Vessel</h5>
 											<div className="card-body">
 												<div id="monthly-budget">
 													{this.state.vessels.length == 0 &&

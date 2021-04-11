@@ -41,7 +41,7 @@ class Navbar extends Component {
 				uncheckNum: count
 			});
 		}).catch((error) => {
-			
+
 		});
 	}
 
@@ -52,7 +52,7 @@ class Navbar extends Component {
 				favourites: res.data,
 			});
 		}).catch((error) => {
-			
+
 		});
 	}
 
@@ -71,7 +71,7 @@ class Navbar extends Component {
 		});
 	}
 
-	handleClear(){
+	handleClear() {
 		let username = LoginModel.getUserName();
 		FavouriteModel.removeAll(username).then((res) => {
 			this.listFavourite();
@@ -80,7 +80,7 @@ class Navbar extends Component {
 		});
 	}
 
-	handleClearNotifi(){
+	handleClearNotifi() {
 		let username = LoginModel.getUserName();
 		NotificationModel.clear(username).then((res) => {
 			this.listNotification();
@@ -115,13 +115,9 @@ class Navbar extends Component {
 								<div className="top-toolbar-wrapper">
 									<nav className="top-toolbar navbar flex-nowrap">
 										<ul className="navbar-nav nav-right">
-											<li className="nav-item dropdown dropdown-notifications dropdown-menu-lg">
-												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" onClick={() => this.listFavourite()}>
-													<i className="icon dripicons-heart">
-														{this.state.uncheckNum > 0 &&
-															<span class="badge badge-danger badge-circle notification-uncheck-num">{this.state.uncheckNum}</span>
-														}
-													</i>
+											<li className="nav-item dropdown dropdown-notifications dropdown-menu-lg" onClick={() => this.listFavourite()}>
+												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+													<i className="icon dripicons-heart"></i>
 												</a>
 												<div className="dropdown-menu dropdown-menu-right">
 													<div className="card card-notification">
@@ -141,17 +137,24 @@ class Navbar extends Component {
 																			return (
 																				<div className="m-t-15 m-b-15" key={index} onClick={() => window.location.replace('/vessel/' + fav.vesselSch.id)}>
 																					<div className="timeline-info">
-																						<i class="la la-heart vs-favourite-icon"></i>
-																						<span className="p-l-10">{fav.vesselSch.vslVoy} </span>
-																						{fav.vesselSch.status == "BERTHING" &&
-																							<span className="badge badge-pill badge-info m-l-10">Berthing</span>
-																						}
-																						{fav.vesselSch.status == "ALONGSIDE" &&
-																							<span className="badge badge-pill badge-warning m-l-10">Alongside</span>
-																						}
-																						{fav.vesselSch.status == "UNBERTHED" &&
-																							<span className="badge badge-pill badge-success m-l-10">Unberthed</span>
-																						}
+																						<div className="row">
+																							<div className="col-8 p-r-5 p-l-10">
+																								<span><strong>Vessel:</strong>{fav.vesselSch.fullVslM}</span>
+																								<br/>
+																								<span><strong>Voyage:</strong> {fav.vesselSch.fullInvoyN}</span>
+																							</div>
+																							<div className="col-3 p-l-5 p-r-5">
+																								{fav.vesselSch.status == "BERTHING" &&
+																									<span className="badge badge-pill badge-info">BERTHING</span>
+																								}
+																								{fav.vesselSch.status == "ALONGSIDE" &&
+																									<span className="badge badge-pill badge-warning">ALONGSIDE</span>
+																								}
+																								{fav.vesselSch.status == "UNBERTHED" &&
+																									<span className="badge badge-pill badge-success">UNBERTHED</span>
+																								}
+																							</div>
+																						</div>
 																					</div>
 																				</div>
 																			)
@@ -166,8 +169,8 @@ class Navbar extends Component {
 													</div>
 												</div>
 											</li>
-											<li className="nav-item dropdown dropdown-notifications dropdown-menu-lg">
-												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" onClick={() => this.handleUncheck()}>
+											<li className="nav-item dropdown dropdown-notifications dropdown-menu-lg" onClick={() => this.handleUncheck()}>
+												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 													<i className="icon dripicons-bell">
 														{this.state.uncheckNum > 0 &&
 															<span class="badge badge-danger badge-circle notification-uncheck-num">{this.state.uncheckNum}</span>

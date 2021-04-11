@@ -94,11 +94,10 @@ class AllRoutes extends Component {
         <Route exact path="/(login)" component={NonLoginRoutes} />
         <Route exact path="/(resetpassword)" component={GuestRoutes} />
         <Route exact path="/(confirmemail)" component={GuestRoutes} />
+        <Route component={LoginRoutes} />
         {!this.state.loginStatus &&
           <Route path='*' component={Notfound} />
         }
-        <Route component={LoginRoutes} />
-       
       </Switch>
     );
   }
