@@ -31,6 +31,13 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
+### `gulp -w`
+
+This updates styling files(css, scss) in the development mode.\
+
+This will reload if you make edits.
+You will also see any lint errors in the console.
+
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ## Deploying the application
