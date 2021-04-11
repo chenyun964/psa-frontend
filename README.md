@@ -7,9 +7,9 @@ For building and running the application you need:
 - [Node >= 10.16](https://nodejs.org/en/)
 - [npm >= 5.6](https://www.npmjs.com/package/npx)
 
-Before start testing/building the application, do remember to create the enviroment files, refer to `.env.example` :
-- `.env.local` - Use for local testing
-- `.env.production` - Use for deployment
+Before start testing/building the application, do remember to create the environment files, refer to `.env.example` :
+- `.env.local` - Used for local testing
+- `.env.production` - Used for deployment
 
 ## Running the application locally
 
@@ -17,7 +17,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+This runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
@@ -35,4 +35,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Deploying the application
 
-After running `npm run build`, there will be a `build` folder created at the root directory of the project. You can use FTP or SSH to move evertyhing to the web server.
+After running `npm run build`, there will be a `build` folder created at the root directory of the project. You can use FTP or SSH to move everything to the web server.
