@@ -169,15 +169,6 @@ function Table({ columns, data }) {
     return (
         <div>
             <table className="table table-responsive-xl table-striped table-bordered dataTable" role="grid" {...getTableProps()}>
-                <tr>
-                    <th colSpan={visibleColumns.length}>
-                        <GlobalFilter
-                            preGlobalFilteredRows={preGlobalFilteredRows}
-                            globalFilter={state.globalFilter}
-                            setGlobalFilter={setGlobalFilter}
-                        />
-                    </th>
-                </tr>
                 <thead>
                     {headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
@@ -198,6 +189,15 @@ function Table({ columns, data }) {
                             ))}
                         </tr>
                     ))}
+                    <tr>
+                        <th colSpan={visibleColumns.length}>
+                            <GlobalFilter
+                                preGlobalFilteredRows={preGlobalFilteredRows}
+                                globalFilter={state.globalFilter}
+                                setGlobalFilter={setGlobalFilter}
+                            />
+                        </th>
+                    </tr>
                 </thead>
                 <tbody {...getTableBodyProps()}>
                     {page.map((row, i) => {
@@ -209,7 +209,7 @@ function Table({ columns, data }) {
                                         {cell.column.Header == "#" &&
                                             <i className={cell.value == null ? "la la-heart-o vs-favourite-icon" : "la la-heart vs-favourite-icon"} onClick={(e) => {
                                                 e.stopPropagation();
-                                                if(cell.value == null){
+                                                if (cell.value == null) {
                                                     let username = LoginModel.getUserName();
                                                     let data = {
                                                         username: username,
@@ -219,9 +219,9 @@ function Table({ columns, data }) {
                                                         cell.value = res.data;
                                                         e.target.className = "la la-heart vs-favourite-icon";
                                                     }).catch((error) => {
-                                                    toast('Fail to favourite vessel.', { type: toast.TYPE.ERROR });
+                                                        toast('Fail to favourite vessel.', { type: toast.TYPE.ERROR });
                                                     })
-                                                } else{
+                                                } else {
                                                     FavrouiteModel.remove(cell.value).then((res) => {
                                                         cell.value = null;
                                                         e.target.className = "la la-heart-o vs-favourite-icon";

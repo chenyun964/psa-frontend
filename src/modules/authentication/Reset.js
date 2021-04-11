@@ -102,7 +102,7 @@ class ResetPwd extends Component {
 									<div className="offset-md-2 col-md-8 col-12">
 										<form onSubmit={this.handleSubmit}>
 											{this.state.failMsg != "" &&
-												<div class="alert alert-danger alert-dismissible fade show">{this.state.failMsg}</div>
+												<div className="alert alert-danger alert-dismissible fade show">{this.state.failMsg}</div>
 											}
 											<div className="form-group">
 												<label>Password</label>

@@ -92,31 +92,31 @@ class Dashboard extends Component {
 											<h5 className="card-header">Overall Status</h5>
 											<div className="card-body">
 												<div className="row">
-													<div class="col-md-12">
-														<div class="card-body">
-															<div class="icon-rounded icon-rounded-info float-left m-r-20">
-																<i class="icon dripicons-enter"></i>
+													<div className="col-md-12">
+														<div className="card-body">
+															<div className="icon-rounded icon-rounded-info float-left m-r-20">
+																<i className="icon dripicons-enter"></i>
 															</div>
-															<h5 class="card-title m-b-5 counter">{this.state.berthingNum}</h5>
-															<h6 class="text-muted m-t-10">Berthing</h6>
+															<h5 className="card-title m-b-5 counter">{this.state.berthingNum}</h5>
+															<h6 className="text-muted m-t-10">Berthing</h6>
 														</div>
 													</div>
-													<div class="col-md-12">
-														<div class="card-body">
-															<div class="icon-rounded icon-rounded-warning float-left m-r-20">
-																<i class="icon dripicons-download"></i>
+													<div className="col-md-12">
+														<div className="card-body">
+															<div className="icon-rounded icon-rounded-warning float-left m-r-20">
+																<i className="icon dripicons-download"></i>
 															</div>
-															<h5 class="card-title m-b-5 counter">{this.state.alongSideNum}</h5>
-															<h6 class="text-muted m-t-10">Alongside</h6>
+															<h5 className="card-title m-b-5 counter">{this.state.alongSideNum}</h5>
+															<h6 className="text-muted m-t-10">Alongside</h6>
 														</div>
 													</div>
-													<div class="col-md-12">
-														<div class="card-body">
-															<div class="icon-rounded icon-rounded-success float-left m-r-20">
-																<i class="icon dripicons-exit"></i>
+													<div className="col-md-12">
+														<div className="card-body">
+															<div className="icon-rounded icon-rounded-success float-left m-r-20">
+																<i className="icon dripicons-exit"></i>
 															</div>
-															<h5 class="card-title m-b-5 counter">{this.state.unberthNum}</h5>
-															<h6 class="text-muted m-t-10">Unberthed</h6>
+															<h5 className="card-title m-b-5 counter">{this.state.unberthNum}</h5>
+															<h6 className="text-muted m-t-10">Unberthed</h6>
 														</div>
 													</div>
 												</div>

@@ -173,7 +173,7 @@ class Navbar extends Component {
 												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 													<i className="icon dripicons-bell">
 														{this.state.uncheckNum > 0 &&
-															<span class="badge badge-danger badge-circle notification-uncheck-num">{this.state.uncheckNum}</span>
+															<span className="badge badge-danger badge-circle notification-uncheck-num">{this.state.uncheckNum}</span>
 														}
 													</i>
 

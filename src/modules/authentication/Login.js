@@ -225,7 +225,7 @@ class Login extends Component {
 										< div className="offset-md-2 col-md-8 col-12">
 											<form onSubmit={this.handleSubmit}>
 												{this.state.signUpFailMsg != "" &&
-													<div class="alert alert-danger alert-dismissible fade show">{this.state.signUpFailMsg}</div>
+													<div className="alert alert-danger alert-dismissible fade show">{this.state.signUpFailMsg}</div>
 												}
 												<div className="form-group">
 													<label>Username</label>
@@ -291,7 +291,7 @@ class Login extends Component {
 										<div className="offset-md-2 col-md-8 col-12">
 											<form onSubmit={this.handleSubmit}>
 												{this.state.signInFailMsg != "" &&
-													<div class="alert alert-danger alert-dismissible fade show">{this.state.signInFailMsg}</div>
+													<div className="alert alert-danger alert-dismissible fade show">{this.state.signInFailMsg}</div>
 												}
 												<div className="form-group">
 													<label>Username</label>
@@ -326,7 +326,7 @@ class Login extends Component {
 										<div className="offset-md-2 col-md-8 col-12">
 											<form onSubmit={this.handleSubmit}>
 												{this.state.doForgotFailMsg != "" &&
-													<div class="alert alert-danger alert-dismissible fade show">{this.state.doForgotFailMsg}</div>
+													<div className="alert alert-danger alert-dismissible fade show">{this.state.doForgotFailMsg}</div>
 												}
 												<div className="form-group">
 													<label>Email</label>

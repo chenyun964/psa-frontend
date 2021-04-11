@@ -79,16 +79,16 @@ class VesselDetail extends Component {
                   <div className="row">
                     <div className="col-6 my-auto">Vessel Details</div>
                     <div className="col-6">
-                      <div class="nav nav-pills nav-pills-primary float-right">
+                      <div className="nav nav-pills nav-pills-primary float-right">
                         {!this.state.isFavourite &&
-                          <button class="btn btn-light" onClick={() => this.addFavourite()}>
-                            <i class="la la-star-o"></i>
+                          <button className="btn btn-light" onClick={() => this.addFavourite()}>
+                            <i className="la la-star-o"></i>
                             <span>Favourite</span>
                           </button>
                         }
                         {this.state.isFavourite &&
-                          <button class="btn btn-danger favourited" onClick={() => this.removeFavourite()}>
-                            <i class="la la-star"></i>
+                          <button className="btn btn-danger favourited" onClick={() => this.removeFavourite()}>
+                            <i className="la la-star"></i>
                             <span>Favourited</span>
                           </button>
                         }

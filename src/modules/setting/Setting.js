@@ -107,10 +107,10 @@ class Setting extends Component {
                     <div className="row content">
                         <div className="col">
                             {!this.state.isLoading && !this.state.emailVerified &&
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <div className="alert alert-danger alert-dismissible fade show" role="alert">
                                     <strong>You will not be able to reset your password and receieve any notfication via email if your email is not verified</strong>.
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true" class="la la-close"></span>
+                                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true" className="la la-close"></span>
                                     </button>
                                 </div>
                             }

@@ -42,8 +42,8 @@ class Vessel extends Component {
     render() {
         return (
             <div className="clinic-page container">
-                <div class="row">
-                    <div class="col-12 content">
+                <div className="row">
+                    <div className="col-12 content">
                         <header className="page-header p-t-10">
                             <div className="d-flex align-items-center">
                                 <div className="mr-auto">
