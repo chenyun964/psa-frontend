@@ -13,6 +13,10 @@ class FavouriteModel {
     async remove(id){
         return axiosJwt.post(config['favourite_remove_api'] + "/" + id);
     }
+
+    async removeAll(username){
+        return axiosJwt.post(config['favourite_remove_all_api'] + "/" + username);
+    }
 }
 
 export default new FavouriteModel();

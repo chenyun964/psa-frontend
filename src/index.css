@@ -50,3 +50,9 @@ code {
   overflow-y: scroll !important;
 }
 
+.list-clear-btn{
+  background: none;
+  padding: 0px;
+  text-decoration: underline;
+}
+

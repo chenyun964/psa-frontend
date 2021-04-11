@@ -13,7 +13,6 @@ const user_register_api = API_HOSTS + '/register';
 const user_request_email_api = API_HOSTS + '/requestemail';
 const user_reset_api = API_HOSTS + '/reset';
 
-
 // User APIs
 const user_get_api = API_HOSTS + '/user';
 const user_update_api = API_HOSTS + '/user';
@@ -28,10 +27,13 @@ const vessel_get_api = API_HOSTS + '/vesselschedule';
 const favourite_list_api = API_HOSTS + '/favourite/get/username';
 const favourite_add_api = API_HOSTS + '/favourite/add';
 const favourite_remove_api = API_HOSTS + '/favourite/remove';
+const favourite_remove_all_api = API_HOSTS + '/favourite/removeAll';
 
 // Notification APIs
 const notification_list_api = API_HOSTS + '/notification/list/username';
 const notification_check_all_api = API_HOSTS + '/notification/check/all';
+const notification_clear_api = API_HOSTS + '/notification/clear';
+
 
 const apis = {
     API_HOSTS,
@@ -57,9 +59,11 @@ const apis = {
     favourite_list_api,
     favourite_add_api,
     favourite_remove_api,
+    favourite_remove_all_api,
 
     notification_list_api,
-    notification_check_all_api
+    notification_check_all_api,
+    notification_clear_api
 }
 
 export default apis;

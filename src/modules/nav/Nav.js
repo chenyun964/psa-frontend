@@ -72,6 +72,24 @@ class Navbar extends Component {
 		});
 	}
 
+	handleClear(){
+		let username = LoginModel.getUserName();
+		FavouriteModel.removeAll(username).then((res) => {
+			this.listFavourite();
+		}).catch((error) => {
+
+		});
+	}
+
+	handleClearNotifi(){
+		let username = LoginModel.getUserName();
+		NotificationModel.clear(username).then((res) => {
+			this.listNotification();
+		}).catch((error) => {
+
+		});
+	}
+
 	render() {
 		return (
 			<div className="header-wrapper">
@@ -99,18 +117,22 @@ class Navbar extends Component {
 									<nav className="top-toolbar navbar flex-nowrap">
 										<ul className="navbar-nav nav-right">
 											<li className="nav-item dropdown dropdown-notifications dropdown-menu-lg">
-												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" onClick={() => this.handleUncheck()}>
+												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" onClick={() => this.listFavourite()}>
 													<i className="icon dripicons-heart">
 														{this.state.uncheckNum > 0 &&
 															<span class="badge badge-danger badge-circle notification-uncheck-num">{this.state.uncheckNum}</span>
 														}
 													</i>
-
 												</a>
 												<div className="dropdown-menu dropdown-menu-right">
 													<div className="card card-notification">
 														<div className="card-header">
 															<h5 className="card-title">My Favourite</h5>
+															<ul className="actions top-right">
+																<li>
+																	<button className="btn list-clear-btn" onClick={() => this.handleClear()}>clear</button>
+																</li>
+															</ul>
 														</div>
 														<div className="p-t-0 card-body">
 															<div className="card-container-wrapper">
@@ -118,30 +140,25 @@ class Navbar extends Component {
 																	<div className="timeline">
 																		{this.state.favourites.length > 0 && this.state.favourites.map((fav, index) => {
 																			return (
-																				<div className="p-t-5 p-b-5" key={index} onClick={() => window.location.replace('/vessel/' + fav.vesselSch.id)}>
+																				<div className="m-t-15 m-b-15" key={index} onClick={() => window.location.replace('/vessel/' + fav.vesselSch.id)}>
 																					<div className="timeline-info">
-																						
-																						<div>
 																						<i class="la la-heart vs-favourite-icon"></i>
-																							<span className="p-r-10">{fav.vesselSch.vslVoy} </span>
-																							{fav.vesselSch.status == "BERTHING" &&
-																						<span className="badge badge-pill badge-info">Berthing</span>
+																						<span className="p-l-10">{fav.vesselSch.vslVoy} </span>
+																						{fav.vesselSch.status == "BERTHING" &&
+																							<span className="badge badge-pill badge-info m-l-10">Berthing</span>
 																						}
 																						{fav.vesselSch.status == "ALONGSIDE" &&
-																							<span className="badge badge-pill badge-warning">Alongside</span>
+																							<span className="badge badge-pill badge-warning m-l-10">Alongside</span>
 																						}
 																						{fav.vesselSch.status == "UNBERTHED" &&
-																							<span className="badge badge-pill badge-success">Unberthed</span>
-																						}	
-																							</div>
-																						
+																							<span className="badge badge-pill badge-success m-l-10">Unberthed</span>
+																						}
 																					</div>
-																					
 																				</div>
 																			)
 																		})}
 																		{this.state.favourites.length == 0 &&
-																			<div> You have yet to favourite any vessel </div>
+																			<div className="m-t-15 m-b-15"> You have yet to favourite any vessel </div>
 																		}
 																	</div>
 																</div>
@@ -163,6 +180,11 @@ class Navbar extends Component {
 													<div className="card card-notification">
 														<div className="card-header">
 															<h5 className="card-title">Notifications</h5>
+															<ul className="actions top-right">
+																<li>
+																	<button className="btn list-clear-btn" onClick={() => this.handleClearNotifi()}>clear</button>
+																</li>
+															</ul>
 														</div>
 														<div className="p-t-0 card-body">
 															<div className="card-container-wrapper">
@@ -179,7 +201,7 @@ class Navbar extends Component {
 																			)
 																		})}
 																		{this.state.notifications.length == 0 &&
-																			<div> No Notification at the moment </div>
+																			<div className="m-t-15 m-b-15"> No Notification at the moment </div>
 																		}
 																	</div>
 																</div>

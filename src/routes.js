@@ -17,7 +17,7 @@ import LoginModel from './modules/authentication/LoginModel';
 
 class NonLoginRoutes extends Component{
   componentDidMount(){
-    CheckLogin.ifLoginRedirect();
+    // CheckLogin.ifLoginRedirect();
   }
 
   render(){

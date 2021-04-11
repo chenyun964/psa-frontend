@@ -33,4 +33,12 @@ i {
 			color: $color-info-state;
 		}
 	}
+
+	&.icon-rounded-warning {
+		background-color: rgba($color-warning-state, .4);
+
+		i {
+			color: $color-warning-state;
+		}
+	}
 }

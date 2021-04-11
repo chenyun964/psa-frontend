@@ -120,15 +120,6 @@ function Table({ columns, data }) {
         }),
         []
     )
-
-    const defaultColumn = React.useMemo(
-        () => ({
-            // Let's set up our default Filter UI
-            Filter: DefaultColumnFilter,
-        }),
-        []
-    )
-
     // Use the state and functions returned from useTable to build your UI
     const {
         getTableProps,
@@ -159,7 +150,7 @@ function Table({ columns, data }) {
                 pageSize: 10,
                 sortBy: [
                     {
-                        id: 'fullVslM',
+                        id: 'bthgDt',
                         desc: false
                     }
                 ]

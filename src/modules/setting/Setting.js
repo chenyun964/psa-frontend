@@ -69,21 +69,21 @@ class Setting extends Component {
         });
     }
 
-    deleteUser(){
+    deleteUser() {
         this.setState({ showDeleteAlert: true });
     }
 
-    sendEmailConfirm(){
+    sendEmailConfirm() {
         this.setState({
             isSending: true
         })
         SettingModel.requestEmail(this.state.username).then((res) => {
-            this.setState({ 
+            this.setState({
                 isSending: false
             });
             toast('Verify email has been sent!', { type: toast.TYPE.SUCCESS })
         }).catch((error) => {
-            this.setState({ 
+            this.setState({
                 isSending: false
             });
             toast('Fail to send the verify email.', { type: toast.TYPE.ERROR })
@@ -108,7 +108,15 @@ class Setting extends Component {
                 <section className="page-content">
                     <div className="row content">
                         <div className="col">
-                            <div className="card m-t-50">
+                            {!this.state.isLoading && !this.state.emailVerified &&
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>You will not be able to reset your password and receieve any notfication via email if your email is not verified</strong>.
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true" class="la la-close"></span>
+                                    </button>
+                                </div>
+                            }
+                            <div className={this.state.emailVerified ? "card m-t-50" : "card m-t-20"}>
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-md-12">
@@ -146,9 +154,6 @@ class Setting extends Component {
                                                                         </Fragment>
                                                                     }
                                                                     <input type="email" className="form-control" autoComplete="email" placeholder="Enter email" value={this.state.email} onChange={(e) => this.handleEmailChange(e)} required />
-                                                                    {!this.state.emailVerified &&
-                                                                        <small> You will not receieve any notfication via email if your email is not verified</small>
-                                                                    }
                                                                 </div>
                                                                 <button type="submit" className="btn btn-primary">Update Profile</button>
                                                             </div>
@@ -170,12 +175,12 @@ class Setting extends Component {
                         confirmBtnText="Confirmed"
                         confirmBtnBsStyle="danger"
                         cancelBtnBsStyle="light"
-                        onCancel={() => this.setState({showDeleteAlert : false})}
+                        onCancel={() => this.setState({ showDeleteAlert: false })}
                         onConfirm={() => this.confirmDelete()}
                     >
-                    This action cannot be reversed!
+                        This action cannot be reversed!
                     </SweetAlert>
-                    </section>
+                </section>
             </div>
         );
     }
