@@ -149,7 +149,7 @@ class Setting extends Component {
                                                                                 <button type="button" className="btn btn-light" disabled>Sending...</button>
                                                                             }
                                                                             {!this.state.isSending &&
-                                                                                <button type="button" className="btn btn-primary" onClick={() => this.sendEmailConfirm()}>Send Verification</button>
+                                                                                <button type="button" className="btn btn-primary request-verfication-btn" onClick={() => this.sendEmailConfirm()}>Send Verification</button>
                                                                             }
                                                                         </Fragment>
                                                                     }
