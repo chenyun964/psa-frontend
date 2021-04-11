@@ -17,7 +17,7 @@ Before running other terminal commands, please run
 - `npm install` to install all the necessary package and dependencies.
 - `gulp -w` to update and watch for styling(css, scss) files, you may stop the program once `watch...` is shown.
 
-*If encouter `No Xcode or CLT version detected!`, you can solve it by the following steps:
+*If encouter `No Xcode or CLT version detected!`, you can resolve it by the following steps:
 1. You need to find the installation directory using: `xcode-select --print-path`
 2. Delete the existing installation: `sudo rm -r -f /Library/Developer/CommandLineTools`
 3. Install by running: `xcode-select --install`
