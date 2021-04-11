@@ -33,7 +33,7 @@ Your app is ready to be deployed!
 
 ### `gulp -w`
 
-This updates styling files(css, scss) in the development mode.\
+This updates styling files(css, scss) in the development mode.
 
 This will reload if you make edits.
 You will also see any lint errors in the console.
