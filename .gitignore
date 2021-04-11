@@ -27,6 +27,5 @@ yarn-error.log*
 package-lock.json
 
 /dist
-/public/assets/vendor
 
 .eslintcache
