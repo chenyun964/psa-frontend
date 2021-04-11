@@ -16,6 +16,7 @@ class Setting extends Component {
             username: "",
             name: "",
             email: "",
+            isSending: false,
             emailVerified: false,
             emailPref: null
         }
@@ -39,7 +40,8 @@ class Setting extends Component {
             isLoading: false,
             username: data.username,
             name: data.name,
-            email: data.email
+            email: data.email,
+            emailVerified: data.emailVerified
         });
     }
 
@@ -62,15 +64,30 @@ class Setting extends Component {
         SettingModel.update(data).then((res) => {
             this.setState({ isLoading: false });
             toast('Profile Updated!', { type: toast.TYPE.SUCCESS })
-            console.log("done");
         }).catch((error) => {
-            console.log(error);
             toast('Failt to Update!', { type: toast.TYPE.ERROR })
         });
     }
 
     deleteUser(){
         this.setState({ showDeleteAlert: true });
+    }
+
+    sendEmailConfirm(){
+        this.setState({
+            isSending: true
+        })
+        SettingModel.requestEmail(this.state.username).then((res) => {
+            this.setState({ 
+                isSending: false
+            });
+            toast('Verify email has been sent!', { type: toast.TYPE.SUCCESS })
+        }).catch((error) => {
+            this.setState({ 
+                isSending: false
+            });
+            toast('Fail to send the verify email.', { type: toast.TYPE.ERROR })
+        });
     }
 
     confirmDelete() {
@@ -115,12 +132,17 @@ class Setting extends Component {
                                                                 <div className="form-group">
                                                                     <label>Email </label>
                                                                     {this.state.emailVerified &&
-                                                                        <span className="badge badge-pill badge-success"> Verified</span>
+                                                                        <span className="m-l-10 badge badge-pill badge-success"> Verified</span>
                                                                     }
                                                                     {!this.state.emailVerified &&
                                                                         <Fragment>
-                                                                            <span className="badge badge-pill badge-danger">Not Verified</span>
-                                                                            <button className="btn btn-primary">Send Verification</button>
+                                                                            <span className="m-l-10 badge badge-pill badge-danger">Not Verified</span>
+                                                                            {this.state.isSending &&
+                                                                                <button type="button" className="btn btn-light" disabled>Sending...</button>
+                                                                            }
+                                                                            {!this.state.isSending &&
+                                                                                <button type="button" className="btn btn-primary" onClick={() => this.sendEmailConfirm()}>Send Verification</button>
+                                                                            }
                                                                         </Fragment>
                                                                     }
                                                                     <input type="email" className="form-control" autoComplete="email" placeholder="Enter email" value={this.state.email} onChange={(e) => this.handleEmailChange(e)} required />

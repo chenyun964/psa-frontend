@@ -12,20 +12,25 @@ class Login extends Component {
 
 			signInUsername: "",
 			signInPassword: "",
+			signInFailMsg: "",
 
 			signUpUsername: "",
 			signUpName: "",
 			signUpPassword: "",
 			signUpEmail: "",
 			signUPConfirmPassword: "",
+			signUpFailMsg: "",
 
 			forgetEmail: "",
+			doForgotFailMsg: "",
 
 			isSignIn: true,
 			isSignUp: false,
 			isForget: false,
+			isLoading: false,
 
-			isLoading: false
+			doForgetSuccess: false,
+			returnMsg: ''
 		}
 	}
 
@@ -40,9 +45,9 @@ class Login extends Component {
 			window.location.replace('/dashboard');
 		}).catch(error => {
 			this.setState({
-				isLoading: false
+				isLoading: false,
+				signInFailMsg: "Invalid username and password."
 			})
-			console.log(error.res);
 		})
 	}
 
@@ -60,8 +65,8 @@ class Login extends Component {
 			username: this.state.signUpUsername,
 			email: this.state.signUpEmail,
 			password: this.state.signUpPassword,
-			role: "admin",
-			name: this.state.signUpName
+			name: this.state.signUpName,
+			confirmPassword: this.state.signUPConfirmPassword
 		}
 
 		LoginModel.register(data).then(res => {
@@ -72,27 +77,26 @@ class Login extends Component {
 			this.doSignIn();
 		}).catch(error => {
 			this.setState({
-				isLoading: false
+				isLoading: false,
+				doForgotFailMsg: "Failed to sign up. Try again later."
 			})
-			console.log(error.res);
 		})
 	}
 
 	doForgot() {
-		let data = {
-			email: this.state.forgetEmail,
-		}
-
-		LoginModel.reset(data).then(res => {
+		LoginModel.reset(this.state.forgetEmail).then(res => {
 			this.setState({
-				isLoading: false
+				isLoading: false,
+				doForgetSuccess: true,
+				returnMsg: res.data
 			})
 			console.log(res.data);
 		}).catch(error => {
 			this.setState({
-				isLoading: false
+				isLoading: false,
+				doForgetSuccess: false,
+				doForgotFailMsg: "Please enter a valid email."
 			})
-			console.log(error.res);
 		})
 	}
 
@@ -107,7 +111,6 @@ class Login extends Component {
 		} else {
 			this.setState({ signInUsername: e.target.value });
 		}
-
 	}
 
 	handlePasswordChange(e) {
@@ -160,6 +163,7 @@ class Login extends Component {
 			isSignIn: true,
 			isSignUp: false,
 			isForget: false,
+			doForgetSuccess: false
 		})
 	}
 
@@ -169,6 +173,7 @@ class Login extends Component {
 			isSignIn: false,
 			isSignUp: true,
 			isForget: false,
+			doForgetSuccess: false
 		})
 	}
 
@@ -178,6 +183,7 @@ class Login extends Component {
 			isSignIn: false,
 			isSignUp: false,
 			isForget: true,
+			doForgetSuccess: false
 		})
 	}
 
@@ -197,7 +203,10 @@ class Login extends Component {
 			signUPConfirmPassword: "",
 			signInUsername: "",
 			signInPassword: "",
-			forgetEmail: ""
+			forgetEmail: "",
+			signInFailMsg: "",
+			signUpFailMsg: "",
+			doForgotFailMsg: ""
 		})
 	}
 
@@ -216,6 +225,9 @@ class Login extends Component {
 									{!this.state.isLoading &&
 										< div className="offset-md-2 col-md-8 col-12">
 											<form onSubmit={this.handleSubmit}>
+												{this.state.signUpFailMsg != "" &&
+													<div class="alert alert-danger alert-dismissible fade show">{this.state.signUpFailMsg}</div>
+												}
 												<div className="form-group">
 													<label>Username</label>
 													<input type="text" className="form-control" placeholder="Username" value={this.state.signUpUsername} onChange={(e) => this.handleUsernameChange(e)} required />
@@ -279,13 +291,16 @@ class Login extends Component {
 									{!this.state.isLoading &&
 										<div className="offset-md-2 col-md-8 col-12">
 											<form onSubmit={this.handleSubmit}>
+												{this.state.signInFailMsg != "" &&
+													<div class="alert alert-danger alert-dismissible fade show">{this.state.signInFailMsg}</div>
+												}
 												<div className="form-group">
 													<label>Username</label>
 													<input type="text" className="form-control" placeholder="Username" value={this.state.username} onChange={(e) => this.handleUsernameChange(e)} required />
 												</div>
 												<div className="form-group">
 													<label>Password</label>
-													<input type="password" className="form-control" placeholder="Passowrd" value={this.state.password} onChange={(e) => this.handlePasswordChange(e)} required />
+													<input type="password" className="form-control" placeholder="Password" value={this.state.password} onChange={(e) => this.handlePasswordChange(e)} required />
 												</div>
 												<div className="col-12 m-b-20 text-center">
 													<button className="btn forgot-password-btn" type="button" onClick={() => this.goForget()}>Forgot password?</button>
@@ -308,9 +323,12 @@ class Login extends Component {
 									{this.state.isLoading &&
 										<Preloader />
 									}
-									{!this.state.isLoading &&
+									{!this.state.isLoading && !this.state.doForgetSuccess &&
 										<div className="offset-md-2 col-md-8 col-12">
 											<form onSubmit={this.handleSubmit}>
+												{this.state.doForgotFailMsg != "" &&
+													<div class="alert alert-danger alert-dismissible fade show">{this.state.doForgotFailMsg}</div>
+												}
 												<div className="form-group">
 													<label>Email</label>
 													<input type="email" className="form-control" placeholder="Email" value={this.state.forgetEmail} onChange={(e) => this.handleEmailChange(e)} required />
@@ -319,6 +337,11 @@ class Login extends Component {
 													<button type="submit" className="btn submit-btn">Send</button>
 												</div>
 											</form>
+										</div>
+									}
+									{!this.state.isLoading && this.state.doForgetSuccess &&
+										<div className="offset-md-2 col-md-8 col-12 text-center">
+											<p>{this.state.returnMsg}</p>
 										</div>
 									}
 								</div>

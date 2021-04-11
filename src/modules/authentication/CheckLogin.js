@@ -10,8 +10,11 @@ class CheckLogin {
 
     ifLoginRedirect(){
         if(LoginModel.retrieveUserToken()){
-            this.getPageIdRedirect();
-            window.location.replace('/');
+            LoginModel.validate(LoginModel.retrieveUserToken()).then(res =>{
+                window.location.replace('/dashboard');
+            }).catch(error => {
+              return;
+            })
             return;
         }
     }

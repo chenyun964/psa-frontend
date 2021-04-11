@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import VesselModel from './VesselModel';
 import VesselHistory from './VesselHistory';
 import LoginModel from './../authentication/LoginModel';
+import FavrouiteModel from './../favourite/FavouriteModel';
 
 class VesselDetail extends Component {
   constructor(props) {
@@ -11,6 +12,8 @@ class VesselDetail extends Component {
       id: 0,
       vessel: {},
       loading: false,
+
+      favouriteId: null,
       isFavourite: false,
     }
   }
@@ -24,6 +27,13 @@ class VesselDetail extends Component {
         this.setState({
           vessel: res.data
         })
+
+        if(res.data.favouriteId){
+          this.setState({
+            favouriteId: res.data.favouriteId,
+            isFavourite: true
+          })
+        }
       }).catch((error) => {
         toast('Fail to retrieve vessel.', { type: toast.TYPE.ERROR });
       })
@@ -33,33 +43,30 @@ class VesselDetail extends Component {
   addFavourite() {
     let username = LoginModel.getUserName();
     let data = {
-      uid: 397,
-      vsid: this.state.vessel.id
+      username: username,
+      vsId: this.state.vessel.id
     }
 
-    VesselModel.addFavourite(data).then((res) => {
+    FavrouiteModel.add(data).then((res) => {
       console.log(res);
       this.setState({
+        favouriteId: res.data,
         isFavourite: true
       })
     }).catch((error) => {
-      toast('Fail to retrieve vessel.', { type: toast.TYPE.ERROR });
+      toast('Fail to favourite vessel.', { type: toast.TYPE.ERROR });
     })
   }
 
-  removeFavrouite() {
-    let data = {
-      uid: 397,
-      vsid: this.state.vessel.id
-    }
-
-    VesselModel.removeFavourite(data).then((res) => {
+  removeFavourite() {
+    FavrouiteModel.remove(this.state.favouriteId).then((res) => {
       console.log(res);
       this.setState({
+        favouriteId: null,
         isFavourite: false
       })
     }).catch((error) => {
-      toast('Fail to retrieve vessel.', { type: toast.TYPE.ERROR });
+      toast('Fail to remove favourite.', { type: toast.TYPE.ERROR });
     })
   }
 
@@ -82,7 +89,7 @@ class VesselDetail extends Component {
                           </button>
                         }
                         {this.state.isFavourite &&
-                          <button class="btn btn-warning" onClick={() => this.removeFavourite()}>
+                          <button class="btn btn-danger favourited" onClick={() => this.removeFavourite()}>
                             <i class="la la-star"></i>
                             <span>Favourited</span>
                           </button>

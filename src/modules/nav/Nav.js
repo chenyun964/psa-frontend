@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LoginModel from '../authentication/LoginModel';
+import FavouriteModel from '../favourite/FavouriteModel';
 import NotificationModel from '../notification/NotificationModel';
 import { Link } from "react-router-dom";
 
@@ -11,6 +12,8 @@ class Navbar extends Component {
 			username: '',
 			email: '',
 			notifications: [],
+			uncheckNum: 0,
+			favourites: []
 		}
 	}
 
@@ -20,9 +23,35 @@ class Navbar extends Component {
 			username: username,
 			email: LoginModel.getUserEmail()
 		})
+		this.listNotification();
+		this.listFavourite();
+	}
+
+	listNotification() {
+		let username = LoginModel.getUserName();
 		NotificationModel.list(username).then((res) => {
+			let count = 0;
+			res.data.forEach(async function (notfi) {
+				if (!notfi.checked) {
+					count++;
+				}
+			})
+			this.setState({
+				notifications: res.data,
+				uncheckNum: count
+			});
+		}).catch((error) => {
+			console.log(error);
+		});
+	}
+
+	listFavourite() {
+		let username = LoginModel.getUserName();
+		FavouriteModel.list(username).then((res) => {
 			console.log(res.data);
-			this.setState({ notifications: res.data });
+			this.setState({
+				favourites: res.data,
+			});
 		}).catch((error) => {
 			console.log(error);
 		});
@@ -31,6 +60,15 @@ class Navbar extends Component {
 	signout() {
 		LoginModel.destory().then(() => {
 			window.location.replace('/login');
+		});
+	}
+
+	handleUncheck() {
+		let username = LoginModel.getUserName();
+		NotificationModel.checkAll(username).then((res) => {
+			this.listNotification();
+		}).catch((error) => {
+
 		});
 	}
 
@@ -61,21 +99,78 @@ class Navbar extends Component {
 									<nav className="top-toolbar navbar flex-nowrap">
 										<ul className="navbar-nav nav-right">
 											<li className="nav-item dropdown dropdown-notifications dropdown-menu-lg">
-												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-													<i className="icon dripicons-bell"></i>
+												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" onClick={() => this.handleUncheck()}>
+													<i className="icon dripicons-heart">
+														{this.state.uncheckNum > 0 &&
+															<span class="badge badge-danger badge-circle notification-uncheck-num">{this.state.uncheckNum}</span>
+														}
+													</i>
+
+												</a>
+												<div className="dropdown-menu dropdown-menu-right">
+													<div className="card card-notification">
+														<div className="card-header">
+															<h5 className="card-title">My Favourite</h5>
+														</div>
+														<div className="p-t-0 card-body">
+															<div className="card-container-wrapper">
+																<div className="p-t-0 card-container">
+																	<div className="timeline">
+																		{this.state.favourites.length > 0 && this.state.favourites.map((fav, index) => {
+																			return (
+																				<div className="p-t-5 p-b-5" key={index} onClick={() => window.location.replace('/vessel/' + fav.vesselSch.id)}>
+																					<div className="timeline-info">
+																						
+																						<div>
+																						<i class="la la-heart vs-favourite-icon"></i>
+																							<span className="p-r-10">{fav.vesselSch.vslVoy} </span>
+																							{fav.vesselSch.status == "BERTHING" &&
+																						<span className="badge badge-pill badge-info">Berthing</span>
+																						}
+																						{fav.vesselSch.status == "ALONGSIDE" &&
+																							<span className="badge badge-pill badge-warning">Alongside</span>
+																						}
+																						{fav.vesselSch.status == "UNBERTHED" &&
+																							<span className="badge badge-pill badge-success">Unberthed</span>
+																						}	
+																							</div>
+																						
+																					</div>
+																					
+																				</div>
+																			)
+																		})}
+																		{this.state.favourites.length == 0 &&
+																			<div> You have yet to favourite any vessel </div>
+																		}
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</li>
+											<li className="nav-item dropdown dropdown-notifications dropdown-menu-lg">
+												<a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" onClick={() => this.handleUncheck()}>
+													<i className="icon dripicons-bell">
+														{this.state.uncheckNum > 0 &&
+															<span class="badge badge-danger badge-circle notification-uncheck-num">{this.state.uncheckNum}</span>
+														}
+													</i>
+
 												</a>
 												<div className="dropdown-menu dropdown-menu-right">
 													<div className="card card-notification">
 														<div className="card-header">
 															<h5 className="card-title">Notifications</h5>
 														</div>
-														<div className="card-body">
+														<div className="p-t-0 card-body">
 															<div className="card-container-wrapper">
-																<div className="card-container">
+																<div className="p-t-0 card-container">
 																	<div className="timeline">
 																		{this.state.notifications.length > 0 && this.state.notifications.map((notifi, index) => {
 																			return (
-																				<div className={"timeline-list" + (notifi.checked ? "" : " timeline-accent")} key={index}>
+																				<div className={"timeline-list" + (notifi.checked ? "" : " timeline-accent")} key={index} onClick={() => window.location.replace('/vessel/' + notifi.vesselSchedule_id)}>
 																					<div className="timeline-info">
 																						<div>{notifi.content}</div>
 																						<small className="text-muted">{notifi.create_at}</small>

@@ -3,6 +3,7 @@ import VesselModel from './VesselModel';
 import LoginModel from './../authentication/LoginModel';
 import { toast } from 'react-toastify';
 import Table from './VesselTable';
+import Preloader from '../../libs/Preloader';
 
 class Vessel extends Component {
 
@@ -10,7 +11,8 @@ class Vessel extends Component {
         super(props);
         this.state = {
             title: "Vessel",
-            vessels: []
+            vessels: [],
+            isLoading: true,
         }
     }
 
@@ -25,10 +27,15 @@ class Vessel extends Component {
     getList() {
         let username = LoginModel.getUserName();
         VesselModel.list(username).then((res) => {
-            this.setState({ vessels: res.data });
+            this.setState({
+                isLoading: false,
+                vessels: res.data
+            });
         }).catch((error) => {
             toast('Fail to retireve vessels!', { type: toast.TYPE.ERROR });
-            console.log(error);
+            this.setState({
+                isLoading: false
+            });
         });
     }
 
@@ -38,7 +45,7 @@ class Vessel extends Component {
             <div className="clinic-page container">
                 <div class="row">
                     <div class="col-12 content">
-                        <header className="page-header">
+                        <header className="page-header p-t-10">
                             <div className="d-flex align-items-center">
                                 <div className="mr-auto">
                                     <h1>{this.state.title}</h1>
@@ -53,7 +60,12 @@ class Vessel extends Component {
                                         <div className="card-body">
                                             <div className="row">
                                                 <div className="col-sm-12">
-                                                    <Table data={this.state.vessels} />
+                                                    {this.state.isLoading &&
+                                                        <Preloader />
+                                                    }
+                                                    {!this.state.isLoading &&
+                                                        <Table data={this.state.vessels} />
+                                                    }
                                                 </div>
                                             </div>
                                         </div>

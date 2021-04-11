@@ -26,8 +26,22 @@ class LoginModel {
         }});
     }
 
-    async reset(data){
-        return axios.post(config['user_reset_api'], data,  {headers: {
+    async reset(email){
+        return axios.post(config['user_reset_api'] + "?email=" + email,  {headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }});
+    }
+
+    async resetPassword(token, data){
+        return axios.post(config['guest_reset_api'] + "?token=" + token,  data, {headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }});
+    }
+
+    async verifyEmail(token){
+        return axios.post(config['guest_confirmemail_api'] + "?token=" + token, {headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }});
@@ -73,6 +87,21 @@ class LoginModel {
            return;
         }
         return user.email;
+    }
+
+    validate(){
+        let token = this.retrieveToken();
+        if(!token){
+            window.location.replace('/login');
+        } else {
+            axios.post(config['auth_validate_api'] + "?token=" + token,  {headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }}).then((res) => {
+            }).catch((error) => {
+                window.location.replace('/login');
+            });
+        }
     }
 }
 

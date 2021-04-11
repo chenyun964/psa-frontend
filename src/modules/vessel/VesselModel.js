@@ -11,6 +11,10 @@ class VesselModel {
     return axiosJwt.get(config['vessel_get_api'] + "/" + username + "/" + vessel_id);
   }
 
+  async getToday(username){
+    return axiosJwt.get(config['vessel_today_api'] + "/" + username); 
+  }
+
   async addFavourite(data){
     return axiosJwt.post(config['favourite_add_api'], data);
   }

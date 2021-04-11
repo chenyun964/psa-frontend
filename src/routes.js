@@ -5,12 +5,27 @@ import CheckLogin from './modules/authentication/CheckLogin';
 import Nav from './modules/nav/Nav';
 
 import Login from './modules/authentication/Login';
+import ResetPwd from './modules/authentication/Reset';
+import Verify from './modules/authentication/Verify';
 import Dashboard from './modules/dashboard/Dashboard';
 
 import Vessel from './modules/vessel/Vessel';
 import VesselDetail from './modules/vessel/VesselDetail';
 
 import Setting from './modules/setting/Setting';
+import LoginModel from './modules/authentication/LoginModel';
+
+class NonLoginRoutes extends Component{
+  componentDidMount(){
+    CheckLogin.ifLoginRedirect();
+  }
+
+  render(){
+    return(
+      <Route exact path='/login' component={Login} />
+    )
+  }
+}
 
 class GuestRoutes extends Component {
 
@@ -18,8 +33,9 @@ class GuestRoutes extends Component {
     return (
       <Fragment>
         <Switch>
-          <Route exact path='/login' component={Login} />
-          <Route exact path='/reset' component={Login} />
+          {/* <Route exact path='/login' component={Login} /> */}
+          <Route exact path='/resetpassword' component={ResetPwd} />
+          <Route exact path='/confirmemail' component={Verify} />
         </Switch>
       </Fragment>
     );
@@ -29,7 +45,7 @@ class GuestRoutes extends Component {
 class LoginRoutes extends Component {
 
   componentDidMount() {
-    CheckLogin.isLogin();
+    LoginModel.validate();
   }
 
   render() {
@@ -72,8 +88,9 @@ class AllRoutes extends Component {
         {!this.state.loginStatus &&
           <Route exact path="/" component={Login} />
         }
-        <Route exact path="/(login)" component={GuestRoutes} />
-        <Route exact path="/(reset)" component={GuestRoutes} />
+        <Route exact path="/(login)" component={NonLoginRoutes} />
+        <Route exact path="/(resetpassword)" component={GuestRoutes} />
+        <Route exact path="/(confirmemail)" component={GuestRoutes} />
         <Route component={LoginRoutes} />
       </Switch>
     );

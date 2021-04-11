@@ -15,6 +15,10 @@ class SettingModel {
     return axiosJwt.delete(config['user_update_api'] + "/" + username);
   }
 
+  async requestEmail(username){
+    return axiosJwt.post(config['user_request_email_api'] + "?username=" + username);
+  }
+
 }
 
 export default new SettingModel();

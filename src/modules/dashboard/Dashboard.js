@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import LoginModel from '../authentication/LoginModel';
 import NotificationModel from '../notification/NotificationModel';
 import VesselModel from '../vessel/VesselModel';
+import Table from '../vessel/VesselTable';
 
 class Dashboard extends Component {
 
@@ -11,16 +12,23 @@ class Dashboard extends Component {
 		this.state = {
 			title: "Dashboard",
 			notifications: [],
-			favourites: []
+			favourites: [],
+
+			vessels: []
 		}
 	}
 
 	componentDidMount() {
-		this.getNotification()
+		this.getFavourite();
 	}
 
 	getFavourite() {
-		console.log(1);
+		let username = LoginModel.getUserName();
+		VesselModel.getToday(username).then((res) => {
+			this.setState({vessels: res.data})
+		}).catch((error) => {
+			console.log(error);
+		});
 	}
 
 	getNotification() {
@@ -38,7 +46,7 @@ class Dashboard extends Component {
 			<div className="dashboard-page container">
 				<div className="row">
 					<div className="col-12 content">
-						<header className="page-header">
+						<header className="page-header p-t-10">
 							<div className="d-flex align-items-center">
 								<div className="mr-auto">
 									<h1>{this.state.title}</h1>
@@ -47,21 +55,22 @@ class Dashboard extends Component {
 						</header>
 						<section className="page-content">
 							<div className="row">
-								<div className="col-xl-7 col-xxl-9">
+								<div className="col-xl-8 col-xxl-9">
 									<div className="card">
-										<h5 className="card-header">Favourited Vessel</h5>
+										<h5 className="card-header">Vessel For the day</h5>
 										<div className="card-body">
 											<div id="monthly-budget">
 												{this.state.favourites.length == 0 &&
-													<div> You have yet to favourite any vessel </div>
+													<div>  </div>
 												}
+												<Table data={this.state.vessels} />
 											</div>
 										</div>
 									</div>
 								</div>
-								<div className="col-xl-5 col-xxl-3">
+								<div className="col-xl-4 col-xxl-3">
 									<div className="card">
-										<h5 className="card-header">Notifications</h5>
+										<h5 className="card-header">Favourites</h5>
 										<div className="card-body">
 											<div className="timeline">
 												{this.state.notifications.length > 0 && this.state.notifications.map((notifi, index) => {
@@ -75,7 +84,7 @@ class Dashboard extends Component {
 													)
 												})}
 												{this.state.notifications.length == 0 &&
-													<div> No Notification at the moment </div>
+													<div> You have yet to favourite any vessel </div>
 												}
 											</div>
 										</div>

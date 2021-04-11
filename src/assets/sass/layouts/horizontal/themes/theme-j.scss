@@ -49,8 +49,8 @@
 /*=========================================================================
 Brand Colors
 ========================================================================== */
-$brand-primary-color: #635ebe!default;
-$brand-accent-color: #F64A91!default;
+$brand-primary-color: #de7261!default;
+$brand-accent-color: #014181!default;
 /*=========================================================================*/
 $body-bg: #f0f6ff; //** Background color for <body>
 $body_text_color: $grey-800 !default; //** Global text color on <body>
@@ -66,13 +66,13 @@ $header_bottom-menu_text-icon_hover-color: $brand-primary-color;
 $logo_icon_color: #fff;
 $logo_text_color: #fff;
 //Mobile/Tablet Menu
-$main_menu_background_color: #161931 !default;
+$main_menu_background_color: #de7261 !default;
 $main_menu_active_bg: transparent;
 //** Background active color
 $main_menu_text_color: rgba(117, 152, 193,1)!default;
 $main_menu_active_text_color: rgba(255, 255, 255, 1)!default;
 //Mobile/Tablet Header
-$toolbar_mobile-tablet_bg_color: lighten(#161931, 2%);
+$toolbar_mobile-tablet_bg_color: lighten(#de7261, 2%);
 $toolbar_mobile-tablet_text_color: #fff!default;
  //Page Content
 $header_text_color: $grey-900 !default;

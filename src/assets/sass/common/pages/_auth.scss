@@ -56,19 +56,9 @@
 		font-weight: bold;
 	}
 
-	.left-side-bar{
+	.left-side-bar, .right-side-bar{
 		background-color: #de7261;
 		height: 100%;
-		border-bottom-left-radius: 15px;
-    	border-top-left-radius: 15px;
-		padding:50px 20px;
-	}
-
-	.right-side-bar{
-		background-color: #de7261;
-		height: 100%;
-		border-bottom-right-radius: 15px;
-    	border-top-right-radius: 15px;
 		padding:50px 20px;
 	}
 
