@@ -31,7 +31,7 @@ class Setting extends Component {
         SettingModel.get(username).then((res) => {
             this.setUser(res.data);
         }).catch((error) => {
-            console.log(error);
+
         });
     }
 
@@ -93,12 +93,10 @@ class Setting extends Component {
     confirmDelete() {
         this.setState({ isLoading: true });
         SettingModel.delete(this.state.username).then((res) => {
-            console.log("done");
             LoginModel.destory().then(() => {
                 window.location.replace('/login');
             });
         }).catch((error) => {
-            console.log(error);
         });
     }
 

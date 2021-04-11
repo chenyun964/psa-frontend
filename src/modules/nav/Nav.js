@@ -41,19 +41,18 @@ class Navbar extends Component {
 				uncheckNum: count
 			});
 		}).catch((error) => {
-			console.log(error);
+			
 		});
 	}
 
 	listFavourite() {
 		let username = LoginModel.getUserName();
 		FavouriteModel.list(username).then((res) => {
-			console.log(res.data);
 			this.setState({
 				favourites: res.data,
 			});
 		}).catch((error) => {
-			console.log(error);
+			
 		});
 	}
 

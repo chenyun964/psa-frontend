@@ -209,7 +209,6 @@ function Table({ columns, data }) {
                                         {cell.column.Header == "#" &&
                                             <i className={cell.value == null ? "la la-star-o vs-favourite-icon" : "la la-star vs-favourite-icon"} onClick={(e) => {
                                                 e.stopPropagation();
-                                                console.log(e);
                                                 if(cell.value == null){
                                                     let username = LoginModel.getUserName();
                                                     let data = {

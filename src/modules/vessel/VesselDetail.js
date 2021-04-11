@@ -48,7 +48,6 @@ class VesselDetail extends Component {
     }
 
     FavrouiteModel.add(data).then((res) => {
-      console.log(res);
       this.setState({
         favouriteId: res.data,
         isFavourite: true
@@ -60,7 +59,6 @@ class VesselDetail extends Component {
 
   removeFavourite() {
     FavrouiteModel.remove(this.state.favouriteId).then((res) => {
-      console.log(res);
       this.setState({
         favouriteId: null,
         isFavourite: false

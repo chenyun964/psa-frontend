@@ -90,7 +90,6 @@ class Login extends Component {
 				doForgetSuccess: true,
 				returnMsg: res.data
 			})
-			console.log(res.data);
 		}).catch(error => {
 			this.setState({
 				isLoading: false,
