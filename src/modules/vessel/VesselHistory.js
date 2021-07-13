@@ -33,8 +33,8 @@ function LineChart(sh) {
     date_data.push("");
 
     sh.data.forEach(async function(record){
-        avg_speed_data.push(record.max_speed);
-        max_speed_data.push(record.avg_speed);
+        avg_speed_data.push(record.avg_speed);
+        max_speed_data.push(record.max_speed);
         date_data.push(record.create_at);
     })
 
